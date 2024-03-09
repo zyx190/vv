@@ -10,8 +10,6 @@ typora-root-url: ./..
 
 最近学习了WinPcap，对教程中的Demo做一些函数说明补充
 
-官方中文文档：[WinPcap: WinPcap 中文技术文档 (redicecn.com)]
-
 ## Demo1: 获取接口列表
 
 -   pcap_findalldevs_ex函数：获取接口列表

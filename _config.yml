@@ -16,7 +16,7 @@ timezone: Asia/Shanghai
 
 title: Baymax's Blog # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the sub-title
+tagline: "Talk is cheap. Show me the code." # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -65,7 +65,7 @@ goatcounter:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode: light # [light | dark]
+theme_mode: # [light | dark]
 
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url
@@ -79,7 +79,7 @@ avatar: assets/img/favicons/avatar.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
-social_preview_image: # string, local or CORS resources
+social_preview_image: assets/img/favicons/avatar.png # string, local or CORS resources
 
 # boolean type, the global switch for TOC in posts.
 toc: true
