@@ -1,0 +1,204 @@
+---
+layout: post
+title: Kotlin基础——泛型与委托
+category: Kotlin
+tags: Kotlin Android
+typora-root-url: ./..
+---
+
+## 泛型
+
+kotlin的泛型与java的泛型类似，同时简化了协变与逆变
+
+kotlin使用out实现协变，使用in实现逆变，支持在声明处使用
+
+``` kotlin
+interface Source<out T> {
+    fun next(): T // T 只能作为输出
+}
+
+interface Sink<in T> {
+    fun put(t: T) // T 只能作为输入
+}
+```
+
+星投影：类似java的泛型通配符?，用于接收不确定的泛型信息，接收的变量只能使用生产值的方法
+
+### 协变逆变原理
+
+根本逻辑为一个父类引用可以无障碍地接收一个子类对象
+
+-   对于协变，类型参数作为==生产者==使用，可以看做函数的返回值类型，此时函数可以返回类型参数的子类型，只能用于输出
+-   对于逆变，类型参数作为==消费者==使用，可以看做函数的参数类型，此时函数可以接收类型参数的子类型，只能用于输入
+
+>   协变和逆变通常用在函数参数和返回值的类型声明上，用于扩展可以输入和输出的类型范围，并不能进行实际地转换，如果要实现类型转换，只能创建新对象，手动进行转换
+
+### 泛型约束
+
+用于约束泛型参数的上界，类似java的泛型super
+
+``` kotlin
+class Person<T : String>
+```
+
+当类型需要多个上界时，使用where语句，只能一个类类型，可以有多个接口类型
+
+``` kotlin
+class Person<T> where T : A, T : B
+```
+
+## 委托
+
+委托模式是将一个对象的职责委托给其他对象完成，两个类通常聚合在一起
+
+kotlin委托通过by关键字实现
+
+### 类委托
+
+将类中的方法委托到被委托对象实现
+
+``` kotlin
+interface Method {
+    fun method()
+}
+
+class MethodImpl : Method {
+    override fun method() {
+        // statement
+    }
+}
+// 委托类与被委托类实现同一接口
+class Person(method: Method) : Method by method {
+    // 委托类中自动生成了接口中的方法，并将调用转发给被委托对象
+    
+    // 当委托类重写了接口方法时，调用委托类重写的方法
+    override fun method() {
+        // statement
+    }
+}
+```
+
+### 属性委托
+
+在属性后使用by关键字加一个表达式，表达式返回被委托对象，将属性的定义委托给该对象管理
+
+属性的getter和setter被委托给这个对象的getValue和setValue方法(val属性只需提供getValue方法)
+
+``` kotlin
+class Person {
+    var name: String by Delegate()
+}
+
+class Delegate : ReadWriteProperty<Person, String> {
+    override operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
+        return "$thisRef, 这里委托了 ${property.name} 属性"
+    }
+
+    override operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+        println("$thisRef 的 ${property.name} 属性赋值为 $value")
+    }
+}
+```
+
+by-lazy延迟初始化是调用了lazy函数，lazy函数传入一个闭包，返回一个Lazy对象，属性定义由Lazy对象管理
+
+Lazy对象只实现了getValue方法，因此通常用于val属性的延迟初始化
+
+将属性委托到映射
+
+``` kotlin
+// Map为只读map
+class Person(val map: Map<String, Any?>) {
+    val name: String by map
+    val age: Int by map
+}
+// MutableMap为可变map
+class Student(val map: MutableMap<String, Any?>) {
+    var name: String by map
+    var age: Int by map
+}
+```
+
+#### 可观察属性
+
+kotlin的Delegates类的observable方法可以实现属性的观察者
+
+observable方法传入一个初始值和一个观察者处理器闭包
+
+``` kotlin
+import kotlin.properties.Delegates
+
+class Person {
+    var name: String by Delegates.observable("initValue") {
+        property, oldValue, newValue -> 
+        // statement
+    }
+}
+```
+
+#### Delegates.notNull
+
+用于对一个非空var属性进行延迟初始化
+
+lateinit不支持原始类型，Delegates.notNull支持所有非空类型
+
+当属性委托给notNull后，若未进行初始化直接访问会抛出异常
+
+``` kotlin
+import kotlin.properties.Delegates
+
+class Person {
+   	var age: Int by Delegates.notNull<Int>()
+}
+```
+
+#### 自定义委托
+
+创建一个类作为被委托类，对于val属性，需要实现getValue操作符，对于var属性，需要实现setValue和getValue操作符
+
+-   当属性为var时，被委托对象继承ReadWriteProperty，重写setValue和getValue
+-   当属性为val时，被委托对象继承ReadOnlyProperty，重写getValue
+
+``` kotlin
+class Delegate : ReadWriteProperty<Person, String> {
+    // thisRef：委托对象的引用，类型可以是委托对象类型或其父类型
+    // property：KProperty类型，存储属性的元数据
+    // 返回值：返回属性对应类型或其子类型
+    override operator fun getValue(thisRef: Person, property: KProperty<*>): String {
+        return "$thisRef, 这里委托了 ${property.name} 属性"
+    }
+	// value：新值，必须是属性对应类型或其父类型
+    override operator fun setValue(thisRef: Person, property: KProperty<*>, value: String) {
+        println("$thisRef 的 ${property.name} 属性赋值为 $value")
+    }
+}
+```
+
+#### provideDelegate
+
+用于定义创建被委托对象时的逻辑
+
+``` kotlin
+class Person {
+    var name: String by DelegateProvider()
+}
+
+class Delegate : ReadWriteProperty<Person, String> {
+    override operator fun getValue(thisRef: Person, property: KProperty<*>): String {
+        return ""
+    }
+
+    override operator fun setValue(thisRef: Person, property: KProperty<*>, value: String) {
+        // statement
+    }
+}
+// 委托提供者
+class DelegateProvider {
+    operator fun provideDelegate(person: Person, property: KProperty<*>) : ReadWriteProperty<Person, String> {
+        // statement
+        return Delegate() // 返回一个委托对象
+    }
+}
+```
+
+通过provider委托时，优先调用provideDelegate，再调用getValue/setValue
