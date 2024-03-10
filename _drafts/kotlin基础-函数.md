@@ -1,7 +1,0 @@
----
-layout: post
-title: Kotlin基础——函数
-categories: [Kotlin, 基础篇]
-tags: Kotlin Android
-typora-root-url: ./..
----
