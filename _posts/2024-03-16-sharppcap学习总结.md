@@ -4,8 +4,8 @@ title: SharpPcap学习总结
 category: C#
 tags: C# SharpPcap
 typora-root-url: ./..
+date: 2024-03-16 21:38 +0800
 ---
-
 ## 前言
 
 SharpPcap是.NET环境中跨平台的抓包框架，对WinPcap和LibPcap进行了统一的封装，使用C#语言
@@ -286,4 +286,166 @@ private static void OnPacketArrival(object s, PacketCapture packetCapture) {
 数据包解析的部分工作原理详见：[SharpPcap数据包解析原理]({% post_url 2024-03-14-sharppcap数据包解析原理 %})
 
 ## 堆文件处理
+
+堆文件处理使用到LibPcap模块的功能，LibPcap中接口的父类为`PcapDevice`类，该类实现了`ICaptureDevice`接口
+
+### 写入堆文件
+
+写入文件主要使用`CaptureFileWriterDevice`类，它继承了`PcapDevice`类，主要使用以下方法
+
+-   `CaptureFileWriterDevice()`：唯一构造器
+
+    传入写入文件名和打开模式，默认为打开并创建
+
+-   `Open()`：打开接口
+
+    传入`DeviceConfiguration`，主要参数是链路层类型`LinkLayers`，要与捕获接口的链路层类型一致
+
+    在`CaptureDeviceExtensions.cs`中包含两个`Open`扩展函数
+
+    -   `void Open(this CaptureFileWriterDevice device, ICaptureDevice captureDevice)`
+    -   `void Open(this CaptureFileWriterDevice device, LinkLayers linkLayerType = LinkLayers.Ethernet)`
+
+-   `Write()`：写入文件，有两个重载
+
+    -   `void Write(ReadOnlySpan<byte> p, ref PcapHeader h)`
+    -   `void Write(ReadOnlySpan<byte> p)`
+    -   `void Write(RawCapture p)`
+
+基本使用如下，注意在Windows中，文件的相对路径是相对于`.exe`可执行文件的路径
+
+```c#
+// 默认模式为打开并创建
+CaptureFileWriterDevice writer = new("capture.pcap");
+// 打开捕获接口
+device.Open(mode: DeviceModes.Promiscuous, read_timeout: 1000);
+// 打开写入接口
+writer.Open(device);
+
+device.OnPacketArrival += new(OnPacketArrival);
+device.StartCapture();
+Console.ReadLine();
+device.StopCapture();
+writer.Close();
+device.Close();
+
+private static void OnPacketArrival(object s, PacketCapture packetCapture) {
+    // 当文件模式不是追加时，在回调中打开写入接口，每次打开会清空文件
+    writer.Write(packetCapture.GetPacket());
+}
+```
+
+### 读取堆文件
+
+读取文件主要使用`CaptureFileReaderDevice`类，它继承了`PcapDevice`类，主要使用以下方法
+
+-   `CaptureFileReaderDevice()`：唯一构造器，传入读取的文件名
+-   `Open()`：打开接口
+-   `StartCapture()`：开始读取文件
+
+基本使用如下
+
+```c#
+CaptureFileReaderDevice reader = new("capture.pcap");
+reader.Open();
+// 设置读取到数据包的回调
+reader.OnPacketArrival += new(OnPacketArrival);
+// 开始读取
+reader.StartCapture();
+Console.ReadLine();
+reader.StopCapture();
+reader.Close();
+
+private static void OnPacketArrival(object s, PacketCapture packetCapture) {
+    Console.WriteLine(packetCapture.GetPacket().GetPacket().PrintHex());
+}
+```
+
+## 发送数据包
+
+### 发送单个数据包
+
+使用`IInjectionDevice`接口中的`SendPacket`方法，`CaptureDeviceExtensions.cs`中包含该方法的四个扩展方法
+
+-   `void SendPacket(ReadOnlySpan<byte> p, ICaptureHeader header = null)`
+-   `void SendPacket(this IInjectionDevice device, byte[] p, int size)`
+-   `void SendPacket(this IInjectionDevice device, Packet p)`
+-   `void SendPacket(this IInjectionDevice device, Packet p, int size)`
+-   `void SendPacket(this IInjectionDevice device, RawCapture p, ICaptureHeader header = null)`
+
+基本使用如下，从文件中读取数据包发送
+
+```c#
+var device = devices[index];
+device.Open(mode: DeviceModes.Promiscuous, read_timeout: 1000);
+
+CaptureFileReaderDevice reader = new("capture.pcap");
+reader.Open();
+
+while (reader.GetNextPacket(out PacketCapture packet) == GetPacketStatus.PacketRead) { 
+    device.SendPacket(packet.GetPacket());
+}
+```
+
+### 发送队列
+
+发送队列是WinPcap扩展功能，使用LibPcap模块，主要使用到`SendQueue`类，使用以下方法
+
+-   `SendQueue()`：唯一构造器，传入队列大小，单位B
+-   `Add()`：添加到发送队列，`SendQueue.cs`的`SendQueueExtensions`中包含它的四个扩展方法
+    -   `bool Add(PcapHeader header, byte[] packet)`
+    -   `bool Add(this SendQueue queue, byte[] packet)`
+    -   `bool Add(this SendQueue queue, Packet packet)`
+    -   `bool Add(this SendQueue queue, RawCapture packet)`
+    -   `bool Add(this SendQueue queue, byte[] packet, int seconds, int microseconds)`
+-   `Transmit()`：发送发送队列，传入`PcapDevice`类型接口对象，返回发送的字节数，有一个重载
+    -   `int Transmit(PcapDevice device, bool synchronized)`
+    -   `int Transmit(PcapDevice device, SendQueueTransmitModes transmitMode)`
+
+
+基本使用如下，从文件中读取数据包添加到发送队列并发送
+
+```c#
+CaptureFileReaderDevice reader = new("capture.pcap");
+reader.Open();
+
+// 构造发送队列
+SendQueue queue = new((int)reader.FileSize);
+
+while (reader.GetNextPacket(out PacketCapture packet) == GetPacketStatus.PacketRead) {
+    // 添加发送队列，传入RawCapture
+    queue.Add(packet.GetPacket());
+}
+
+device.Open(mode: DeviceModes.Promiscuous, read_timeout: 1000);
+// 在WinPcap下，ILiveDevice的运行时类型是LibPcapLiveDevice，强转为子类
+// LibPcapLiveDevice继承了PcapDevice类，实现了ILiveDevice接口
+// 使用LibPcapLiveDeviceList.Instance可直接获得LibPcapLiveDevice集合
+queue.Transmit(device as LibPcapLiveDevice, true);
+```
+
+## 统计流量信息
+
+使用到`ICaptureDevice`对象的`Statistics`属性，对于`LibPcapLiveDevice`对象，该属性不为null，该属性为`ICaptureStatistics`类型，包含以下属性
+
+-   `ReceivedPackets`：已接收的数据包数量
+-   `DroppedPackets`：丢失的数据包数量
+-   `InterfaceDroppedPackets`：接口丢包数
+
+基本使用如下
+
+```c#
+device.Open(mode: DeviceModes.Promiscuous, read_timeout: 1000);
+device.OnPacketArrival += new(OnPacketArrival);
+device.StartCapture();
+Console.ReadLine();
+
+// 获取统计信息
+var statistics = device.Statistics;
+Console.WriteLine($"接收{statistics?.ReceivedPackets}个包");
+Console.WriteLine($"丢失{statistics?.DroppedPackets}个包");
+
+device.StopCapture();
+device.Close();
+```
 
