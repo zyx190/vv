@@ -1,7 +1,7 @@
 ---
 layout: post
 title: SharpPcap学习总结
-category: C#
+categories: C#
 tags: C# SharpPcap
 typora-root-url: ./..
 date: 2024-03-16 21:38 +0800

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: SharpPcap数据包解析原理
-category: C#
+categories: C#
 tags: C# SharpPcap
 typora-root-url: ./..
 date: 2024-03-14 19:24 +0800
