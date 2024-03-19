@@ -19,7 +19,7 @@ title: Baymax's Blog # the main title
 tagline: "Talk is cheap. Show me the code." # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
-  这里是Baymax小振的博客
+  这里是Baymax小振的博客，一个热爱编程、探索科技世界的程序员的小天地。
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -43,16 +43,16 @@ social:
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
 
-google_site_verification: # fill in to your verification string
+google_site_verification: TGMxMQ337dKI-wX4cXqgjK7Ph-4ly5GYpjvCstU0dO8 # fill in to your verification string
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
 
 google_analytics:
-  id: # fill in your Google Analytics ID
+  id: G-6JZ39N2C1H # fill in your Google Analytics ID
 
 goatcounter:
-  id: # fill in your Goatcounter ID
+    id: # fill in your GoatCounter ID
 
 # Prefer color scheme setting.
 #
@@ -127,8 +127,6 @@ paginate: 10
 # The base URL of your site
 baseurl: ""
 
-plugins:
-  - jemoji
 
 # ------------ The following options are not recommended to be modified ------------------
 
@@ -218,5 +216,4 @@ jekyll_compose:
       date: 
       categories:
       tags:
-      comments: false
       typora-root-url: ./..
