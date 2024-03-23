@@ -224,26 +224,25 @@ WPF中的控件主要分为6类控件，分别是布局控件、内容控件、�
 
 内容属性是`Content`，内容只能包含一个子元素，若需要包含多个元素，则使用一个容器元素包装多个元素后放入内容
 
--   Button
--   ButtonBase
--   CheckBox
--   ComboBoxItem
--   ContentControl
--   Frame
--   GridViewColumnHeader
--   GroupItem
--   Label
--   ListBoxItem
--   ListViewItem
--   NavigationWindow
--   RadioButton
--   RepeatButton
--   ScrollViewer
--   StatusBarItem
--   ToggleButton
--   ToolTip
--   UserControl
--   Window
+-   Button：简单按钮
+-   ButtonBase：所有按钮类控件的父类
+-   CheckBox：复选框
+-   ComboBoxItem：下拉列表项，ComboBox的子项容器
+-   Frame：支持导航的内容控件，可导航到其他xaml窗口
+-   GridViewColumnHeader：GridViewColumn的标题
+-   GroupItem：GroupBox子项容器
+-   Label：简单文本标签
+-   ListBoxItem：ListBox子项容器
+-   ListViewItem：ListView子项容器
+-   NavigationWindow：支持导航的Window，继承自Window
+-   RadioButton：单选框
+-   RepeatButton：在按下时重复触发事件的按钮
+-   ScrollViewer：包含其他元素的可滚动区域
+-   StatusBarItem：StatusBar子项容器
+-   ToggleButton：可切换状态的按钮父类
+-   ToolTip：工具信息提示
+-   UserControl：继承该类自定义控件
+-   Window：窗口区域
 
 #### HeaderedContentControl
 
@@ -251,10 +250,9 @@ WPF中的控件主要分为6类控件，分别是布局控件、内容控件、�
 
 主要包含以下元素
 
--   Expander
--   GroupBox
--   HeaderedContentControl
--   TabItem
+-   Expander：带标题的可折叠内容区域
+-   GroupBox：带标题和边框的内容区域
+-   TabItem：TabControl的子项容器
 
 #### ItemsControl
 
@@ -262,17 +260,16 @@ WPF中的控件主要分为6类控件，分别是布局控件、内容控件、�
 
 主要包含以下控件
 
--   Menu
--   MenuBase
--   ContextMenu
--   ComboBox
--   ItemsControl
--   ListBox
--   ListView
--   TabControl
--   TreeView
--   Selector
--   StatusBar
+-   Menu：菜单
+-   MenuBase：菜单父类
+-   ContextMenu：右键上下文菜单
+-   ComboBox：下拉列表
+-   ListBox：可选项列表
+-   ListView：数据项列表，相比ListBox提供更多自定义选项
+-   TabControl：包含多个标签页
+-   TreeView：树形结构列表
+-   Selector：包含多个子元素，为子元素提供可选择能力
+-   StatusBar：状态栏
 
 ItemsControl会对内容中的单个元素自动使用子项容器进行包装
 
@@ -311,9 +308,9 @@ ItemsControl对应的子项容器如下
 
 主要包含以下控件
 
--   MenuItem
--   TreeViewItem
--   ToolBar
+-   MenuItem：菜单项
+-   TreeViewItem：树形列表项
+-   ToolBar：工具栏
 
 #### Decorator
 
@@ -337,17 +334,15 @@ ItemsControl对应的子项容器如下
 
 主要有以下元素
 
--   Canvas
--   DockPanel
--   Grid
--   TabPanel
--   ToolBarOverflowPanel
--   StackPanel
--   ToolBarPanel
--   UniformGrid
--   VirtualizingPanel
--   VirtualizingStackPanel
--   WrapPanel
+-   Canvas：画布
+-   DockPanel：停靠布局
+-   Grid：网格布局
+-   TabPanel：标签页布局
+-   ToolBarOverflowPanel：可溢出的ToolBar布局
+-   StackPanel：栈式布局
+-   ToolBarPanel：ToolBar布局
+-   UniformGrid：均分网格布局
+-   WrapPanel：换行布局
 
 ### 控件通用属性
 
@@ -463,7 +458,7 @@ public class Student : INotifyPropertyChanged {
 }
 ```
 
-编写一个简单布局，在后台类中通过C#代码的方式将`Student`类的`Name`属性绑定到文本框中
+编写一个简单布局，在后台类中通过C#代码的方式将`Student`类的`Name`属性绑定到文本框中（也可使用标签扩展）
 
 xaml布局如下
 
@@ -512,5 +507,78 @@ public partial class MainWindow : Window {
 
 上述Binding对象的`Source`属性可以接收任何对象，若对象没有实现`INotifyPropertyChanged`接口，则无法向Binding通知自身的状态变化，`INotifyPropertyChanged`提供了对象向Binding通知自身变化的能力
 
-### Binding流向
+### Binding属性
+
+Binding对象的常用属性如下
+
+| 属性名             | 描述                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| AsyncState         | 获取或设置传递给异步数据调度程序的不透明数据。               |
+| BindingGroupName   | 获取或设置此绑定所属的BindingGroup的名称                     |
+| Converter          | 获取或设置要使用的转换器                                     |
+| ConverterParameter | 获取或设置要传递给Converter的参数                            |
+| Delay              | 获取或设置更新位于目标更改上的值之后的绑定源前要等待的时间（毫秒） |
+| ElementName        | 获取或设置要用作绑定源对象的控件元素的名称                   |
+| FallbackValue      | 获取或设置当绑定无法返回值时要使用的值                       |
+| IsAsync            | 获取或设置一个值，该值表示Binding是否应异步获取和设置值      |
+| Mode               | 获取或设置一个值，该值指示绑定的数据流方向                   |
+| Path               | 获取或设置绑定源属性的路径                                   |
+| RelativeSource     | 通过指定绑定源相对于绑定目标位置的位置，获取或设置此绑定源   |
+| Source             | 获取或设置要用作绑定源的对象                                 |
+| StringFormat       | 获取或设置一个字符串，该字符串指定如果绑定值显示为字符串时如何设置该绑定的格式 |
+| TargetNullValue    | 获取或设置当源的值为 `null` 时在目标中使用的值               |
+
+### 数据流向
+
+通过设置Binding对象的`Mode`属性可以改变Binding数据的流向，`Mode`属性是`BindingMode`类型，拥有四个枚举值
+
+-   OneWay：单向流动
+-   TwoWay：双向流动，默认值
+-   OnTime
+-   OneWayToSource
+-   Default：根据控件的读写属性确定单向或双向
+
+### Path路径
+
+Path属性指定绑定的数据源属性
+
+-   直接路径：直接指定属性名
+
+    ```xml
+    <!--通过标签扩展引用其他元素的属性-->
+    <TextBlock Text="Hello World" x:Name="MyText"></TextBlock>
+    <TextBlock Text="{Binding ElementName=MyText, Path=Text}"></TextBlock>
+    ```
+
+-   多级路径：可以获取属性的属性
+
+    ```xml
+    <!--通过标签扩展引用其他元素的属性-->
+    <TextBlock Text="Hello World" x:Name="MyText"></TextBlock>
+    <!--Path指向Text的Length属性-->
+    <TextBlock Text="{Binding ElementName=MyText, Path=Text.Length}"></TextBlock>
+    <!--使用Text的索引器，点.可以省略-->
+    <TextBlock Text="{Binding ElementName=MyText, Path=Text.[0]}"></TextBlock>
+    ```
+
+-   默认路径：当绑定的数据源自身就是数据值时，使用默认路径
+
+    当数据源是一个集合时，使用`/`表示第一个元素的默认路径
+
+    ```xml
+    <Window.Resources>
+        <sys:String x:Key="MyValue">Hello</sys:String>
+    </Window.Resources>
+    <TextBlock Text="{Binding ., Source={StaticResource MyValue}}"/>
+    <!--相当于-->
+    <TextBlock Text="{Binding Path=., Source={StaticResource ResourceKey=MyValue}}"/>
+    ```
+
+### 数据源
+
+为Binding指定数据源主要通过`Source`属性，`ElementName`属性可以引用控件元素
+
+
+
+
 
