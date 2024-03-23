@@ -88,15 +88,18 @@
   }
 
   .highlight .sr {
-    color: #116329;
+    // color: #116329;
+    color: var(--element-structure-color);
   }
 
   .highlight .na {
-    color: #116329;
+    // color: #116329;
+    color: var(--element-structure-color);
   }
 
   .highlight .nt {
-    color: #116329;
+    // color: #116329;
+    color: var(--element-structure-color);
   }
 
   .highlight .gi {
