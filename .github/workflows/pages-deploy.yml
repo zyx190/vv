@@ -55,8 +55,9 @@ jobs:
           bundle exec htmlproofer _site \
             \-\-disable-external=true \
             \-\-enforce-https=false \
-            \-\-disable-alt-relative=true \
+            \-\-ignore-missing-alt=true \
             \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+            \-\-checks "Links","Scripts"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

@@ -77,7 +77,7 @@ pcap_if_t结构体是pcap_if的typedef，相关类型定义如下
 
 上述结构的关系如下图所示，一个接口可以拥有多个网络地址，都是以链表形式连接
 
-<img src="assets/img/2024-03-07-WinPcap教程Demo总结/51fd7ea28c69437790faa1aaf2ce1f9atplv-k3u1fbpfcp-jj-mark0000q75.png" alt="image-20240205190542864"  />
+<img src="/assets/img/2024-03-07-WinPcap教程Demo总结/51fd7ea28c69437790faa1aaf2ce1f9atplv-k3u1fbpfcp-jj-mark0000q75.png" alt="image-20240205190542864"  />
 
 ## Demo2：获取接口高级信息
 
@@ -443,7 +443,7 @@ pcap_setmode：设置接口为统计模式
 
     `*((LONGLONG*)(pkt_data + 8))`获取AcceptedBytes数值
 
-<img src="assets/img/2024-03-07-WinPcap教程Demo总结/1ae58bd0069649b7b5a1d07404199ec2tplv-k3u1fbpfcp-jj-mark0000q75.png" alt="image-20240207192014454"  />
+<img src="/assets/img/2024-03-07-WinPcap教程Demo总结/1ae58bd0069649b7b5a1d07404199ec2tplv-k3u1fbpfcp-jj-mark0000q75.png" alt="image-20240207192014454"  />
 
 ---
 

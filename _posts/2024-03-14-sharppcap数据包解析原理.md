@@ -350,7 +350,7 @@ public sealed class ByteArraySegment : IEnumerable<byte> {
 
 我们画个图来明确这些属性表示的部分
 
-![image-20240314153528345](assets/img/sharppcap数据包解析原理/image-20240314153528345.png)
+![image-20240314153528345](/assets/img/sharppcap数据包解析原理/image-20240314153528345.png)
 
 可以看到BytesLength才是表示实际可以处理的数组长度，包括在构造器中也有体现，`BytesLength`设置为`bytesLength`和`bytes.Length`的最小值。Offset表示在数组中的一个偏移，Length表示Offset之后的长度，数据包解析的首部和负载的划分就是归功于这两个属性，下面我们就来看看它是如何划分的
 
@@ -401,17 +401,17 @@ internal static PacketOrByteArraySegment ParseNextSegment(ByteArraySegment heade
 
 构造`EthernetPacket`时传入的`ByteArraySegment`中`Bytes`为整个数据包，`Length`和`BytesLength`都等于`Bytes.Length`，`Offset`为0，调用`NextSegment()`前设置`Length = 14`（以太网首部长度为14B)，如下图所示
 
-![image-20240314161802543](assets/img/sharppcap数据包解析原理/image-20240314161802543.png)
+![image-20240314161802543](/assets/img/sharppcap数据包解析原理/image-20240314161802543.png)
 
 下面用画图来表示每一步中每个变量的位置
 
 1.   `var startingOffset = Offset + Length;`
 
-     ![image-20240314161945296](assets/img/sharppcap数据包解析原理/image-20240314161945296.png)
+     ![image-20240314161945296](/assets/img/sharppcap数据包解析原理/image-20240314161945296.png)
 
 2.   `segmentLength = Math.Min(segmentLength, BytesLength - startingOffset);`
 
-     ![image-20240314162137013](assets/img/sharppcap数据包解析原理/image-20240314162137013.png)
+     ![image-20240314162137013](/assets/img/sharppcap数据包解析原理/image-20240314162137013.png)
 
 3.   `var bytesLength = startingOffset + segmentLength;`
 
@@ -419,7 +419,7 @@ internal static PacketOrByteArraySegment ParseNextSegment(ByteArraySegment heade
 
 4.   `new ByteArraySegment(Bytes, startingOffset, segmentLength, bytesLength);`
 
-     ![image-20240314161444568](assets/img/sharppcap数据包解析原理/image-20240314161444568.png)
+     ![image-20240314161444568](/assets/img/sharppcap数据包解析原理/image-20240314161444568.png)
 
 从上面的步骤我们可以看出，对于不同的片段，Length就是该片段的长度，例如对于首部，Length就是首部的长度，对于负载，Length就是负载的长度。那么Offset就起到一个索引的作用，Offset就是该片段在数组中的起始索引
 
@@ -427,17 +427,17 @@ internal static PacketOrByteArraySegment ParseNextSegment(ByteArraySegment heade
 
 假设有下图所示的`ByteArraySegment`
 
-![image-20240314163339691](assets/img/sharppcap数据包解析原理/image-20240314163339691.png)
+![image-20240314163339691](/assets/img/sharppcap数据包解析原理/image-20240314163339691.png)
 
 1.   设置首部Length
 
      Offset就是该首部的起始索引
 
-     ![image-20240314163808828](assets/img/sharppcap数据包解析原理/image-20240314163808828.png)
+     ![image-20240314163808828](/assets/img/sharppcap数据包解析原理/image-20240314163808828.png)
 
 2.   调用`NextSegment()`获取负载
 
-     ![image-20240314164807903](assets/img/sharppcap数据包解析原理/image-20240314164807903.png)
+     ![image-20240314164807903](/assets/img/sharppcap数据包解析原理/image-20240314164807903.png)
 
 可以看到我们依然获得了符合要求的`ByteArraySegment`对象
 
