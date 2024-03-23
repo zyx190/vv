@@ -12,7 +12,7 @@ WPF是Windows平台的UI框架，使用C#和xaml语言编写，xaml语言是xml�
 
 使用Visual Studio创建WPF应用程序，生成如下文件
 
-![image-20240311194923473](/assets/img/wpf学习笔记/image-20240311194923473.png)
+![image-20240311194923473](assets/img/wpf学习笔记/image-20240311194923473.png)
 
 -   依赖项中`NETCore.App`是.NET平台应用程序的依赖，`WindowDeskTop.App.WPF`是WPF框架的依赖
 
@@ -198,7 +198,7 @@ X命名空间中包含解析xaml文件的内容，通常使用其中的元素和
 
 WPF中的控件主要分为6类控件，分别是布局控件、内容控件、带标题内容控件、集合控件、带标题集合控件、特殊内容控件，这些控件类的继承关系如下
 
-![Screenshot_20240322_215401_cn.wps.moffice_eng](/assets/img/wpf学习笔记/Screenshot_20240322_215401_cn.wps.moffice_eng.jpg)
+![Screenshot_20240322_215401_cn.wps.moffice_eng](assets/img/wpf学习笔记/Screenshot_20240322_215401_cn.wps.moffice_eng.jpg)
 
 -   ContentControl：单一内容控件
 -   HeaderedContentControl：带标题单一内容控件
@@ -577,8 +577,4 @@ Path属性指定绑定的数据源属性
 ### 数据源
 
 为Binding指定数据源主要通过`Source`属性，`ElementName`属性可以引用控件元素
-
-
-
-
 
