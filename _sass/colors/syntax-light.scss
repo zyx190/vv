@@ -108,7 +108,8 @@
   }
 
   .highlight .kc {
-    color: #0550ae;
+    // color: #0550ae;
+    color: var(--element-key-color);
   }
 
   // 数字
@@ -139,7 +140,8 @@
   }
 
   .highlight .nl {
-    color: #0550ae;
+    // color: #0550ae;
+    color: var(--element-variable-color);
   }
 
   .highlight .py {

@@ -2,7 +2,7 @@
 layout: post
 title: JavaScript基础指南
 categories:
-- JavaScript
+- 前端
 tags:
 - JavaScript
 - 前端

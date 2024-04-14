@@ -2,7 +2,7 @@
 layout: post
 title: JavaScript异步编程
 categories:
-- JavaScript
+- 前端
 tags:
 - JavaScript
 - 前端
