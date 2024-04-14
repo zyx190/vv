@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Jetpack Compose
+title: Jetpack Compose基础指南
 categories:
 - Android
 tags:

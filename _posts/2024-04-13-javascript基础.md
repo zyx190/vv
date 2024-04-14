@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript系列——基础
+title: JavaScript基础指南
 categories:
 - JavaScript
 tags:
@@ -9,7 +9,7 @@ tags:
 typora-root-url: ./..
 date: 2024-04-13 19:19 +0800
 image:
-  path: /assets/img/javascript-基础/javascript.jpg
+  path: /assets/img/javascript基础/javascript.jpg
 ---
 ## 开始
 
@@ -705,7 +705,7 @@ class Dog extends Animal {
 
 每个函数、对象都自动存在一个原型对象，隐含的prototype属性指向原型对象，而原型对象中的constructor属性指向该函数对象
 
-<img src="/assets/img/javascript-基础/image-20221004153502667.png" alt="image-20221004153502667"/>
+<img src="/assets/img/javascript基础/image-20221004153502667.png" alt="image-20221004153502667"/>
 
 当函数以**构造函数**的形式调用时(类实例化)，该构造函数创建的对象中会包含一个隐含属性\_\_proto\_\_，该属性指向原型对象
 
@@ -753,17 +753,17 @@ console.log(p instanceof Person.prototype) // error
 
 构造函数与对象的原型关系
 
-<img src="/assets/img/javascript-基础/1265396-20171127082821065-1506469155.png" alt="img" />
+<img src="/assets/img/javascript基础/1265396-20171127082821065-1506469155.png" alt="img" />
 
 两种构造方法的原型链
 
 经典方法(对应类实例化)：真正的创建了Person构造函数，生成了Person的原型对象
 
-<img src="/assets/img/javascript-基础/image-20221004185029520.png" alt="image-20221004185029520"/>
+<img src="/assets/img/javascript基础/image-20221004185029520.png" alt="image-20221004185029520"/>
 
 极简方法或字面量方法：本质上person是个Object对象，没有创建新的原型对象
 
-<img src="/assets/img/javascript-基础/image-20221005155435211.png" alt="image-20221005155435211"  />
+<img src="/assets/img/javascript基础/image-20221005155435211.png" alt="image-20221005155435211"  />
 
 原型继承：js继承通过原型链实现，子类的原型对象就是父类的实例对象
 

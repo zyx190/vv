@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript系列——异步编程
+title: JavaScript异步编程
 categories:
 - JavaScript
 tags:
@@ -9,7 +9,7 @@ tags:
 typora-root-url: ./..
 date: 2024-04-13 19:19 +0800
 image:
-  path: /assets/img/javascript-基础/javascript.jpg
+  path: /assets/img/javascript基础/javascript.jpg
 ---
 ## Promise
 
