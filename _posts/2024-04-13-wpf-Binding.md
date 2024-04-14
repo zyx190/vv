@@ -1,6 +1,6 @@
 ---
 layout: post
-title: WPF系列——Binding
+title: WPF基础——Binding
 categories:
 - C#
 - WPF
