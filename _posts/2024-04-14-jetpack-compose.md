@@ -5,7 +5,7 @@ categories:
 - Android
 tags:
 - Android
-- Jetpack
+- Jetpack Compose
 typora-root-url: ./..
 image:
   path: "/assets/img/jetpack-compose/jetpack_compose.png"
