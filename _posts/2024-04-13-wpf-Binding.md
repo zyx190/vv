@@ -1,11 +1,15 @@
 ---
 layout: post
-title: WPF——Binding
-categories: [C#, WPF]
-tags: C# WPF
+title: WPF系列——Binding
+categories:
+- C#
+- WPF
+tags:
+- C#
+- WPF
 typora-root-url: ./..
+date: 2024-04-13 21:53 +0800
 ---
-
 ## 开始
 
 Binding对象是实现数据和界面双向绑定的基础
@@ -279,7 +283,113 @@ _clrNodeContentTemplate.Seal();
 
     当数据通过方法获取时，使用`ObjectDataProvider`包装数据源，再赋给Source
 
+## 数据校验
 
+### 基本使用
 
+Binding对象包含一个`ValidationRules`属性，类型为`Collection<ValidationRule>`，表示可以对一个Binding设置多个校验条件
 
+`ValidationRule`是一个抽象类，包含一个`Validate`抽象方法，返回`ValidationResult`对象
+
+```c#
+public class RangeValidation : ValidationRule {
+
+    public override ValidationResult Validate(object? value, CultureInfo cultureInfo) {
+        var num = (int)(value ?? throw new ArgumentNullException(nameof(value)));
+        if (num > 0) {
+            // 第二个参数为错误信息
+            return new ValidationResult(true, null);
+        } else {
+            return new ValidationResult(false, "num < 10");
+        }
+    }
+}
+
+// 添加到ValidationRules中
+binding.ValidationRules.Add(new RangeValidation());
+```
+
+>   Binding校验默认只校验通过外部方法改变Target导致Source改变，不会校验Source改变导致Target改变，设置`ValidatesOnTargetUpdated`属性为true，校验Source导致的改变
+{: .prompt-tip}
+
+### 校验错误事件
+
+若需要Binding在校验错误时发出一个事件，需要设置`NotifyOnValidationError`属性为true
+
+校验错误事件会沿着元素树传播，当遇到一个元素设置了校验错误事件处理器，则该元素处理该事件，处理后可继续传播，也可立即停止
+
+```c#
+// 定义事件处理器
+void ValidateError(object sender, RoutedEventArgs e) {
+    // 判断是否有校验错误
+    if (Validation.GetHasError(MyText)) {
+        // 获取校验错误信息
+         var message = Validation.GetErrors(MyText)[0].ErrorContent.ToString(); 
+    }
+}
+
+// 设置事件处理器
+MyTextBlock.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(ValidateError));
+```
+
+## 数据转换
+
+数据转换通过`IValueConverter`实现类实现
+
+```c#
+public class MyConverter : IValueConverter {
+
+    public object Convert(object? value, 
+                          Type targetType, 
+                          object? parameter, 
+                          CultureInfo culture) {
+        // Source转换为Target
+    }
+
+    public object ConvertBack(object? value, 
+                              Type targetType, 
+                              object? parameter, 
+                              CultureInfo culture) {
+        // Target转换为Source
+    }
+}
+
+```
+
+## MultiBinding
+
+MultiBinding组合多个Binding的Source，绑定到一个Target
+
+MultiBinding支持Binding的基本属性，如`StringFormat`、`Mode`、`Converter`等
+
+![image-20240413213742394](/assets/img/wpf-Binding/image-20240413213742394.png)
+
+组合字符串的基本使用，xaml标签扩展
+
+```xml
+<TextBlock x:Name="MyText">
+	<TextBlock.Text>
+		<MultiBinding StringFormat="Binding1：{}，Binding2：{}">
+        	<Binding />
+            <!--other bindings-->
+        </MultiBinding>
+    </TextBlock.Text>
+</TextBlock>
+```
+
+多值转换：实现`IMultiValueConverter`转换多个Source
+
+```c#
+public class MultiConverter : IMultiValueConverter {
+
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+        // Sources转换为Target
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        // Target转换为Sources
+    }
+}
+
+```
 
