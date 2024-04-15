@@ -1,0 +1,153 @@
+---
+layout: page
+---
+
+<style>
+
+.about-title-container {
+    background-color: #E2ECFC;
+    margin: 10px 0;
+}
+
+.about-title {
+    display: inline-block;
+    height: 100%;
+    padding: 5px 15px;
+    background-color: #1976d2;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+
+#name {
+    text-align: center;
+    font-weight: bold;
+}
+
+.infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.info-item {
+    margin: 0 20px;
+}
+
+.about-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.edu-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.school-info-container {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.school-info {
+    display: flex;
+    align-items: center;
+}
+
+.school-degree {
+    text-align: center;
+}
+
+.prize-item {
+    margin: 10px 0;
+}
+
+.prize-item div {
+    display: inline-block;
+}
+
+.prize-description {
+    margin-left: 15px;
+}
+
+</style>
+
+<div>
+    <div>
+        <h1 id="name">{{site.social.name}}</h1>
+        <div class="infos">
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>北京-中国</span>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>{{site.social.email}}</span>
+            </div>
+            <div class="info-item">
+                <i class="fa-brands fa-github"></i>
+                <a href="{{site.social.links[0]}}">{{site.github.username}}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="about-title-container">
+            <div class="about-title">教育背景</div>
+        </div>
+        <ul class="about-list">
+            {% for school in site.data.about.education %}
+                <li class="edu-item">
+                    <div class="school-info">
+                        <img src="{{school.logo}}" alt="{{school.name}}" height="50" width="50"/>
+                        <div class="school-info-container">
+                            <div class="school-info-detail">{{school.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{school.profession}}</div>
+                            <div class="school-time">{{school.start}} - {{school.end}}</div>
+                        </div>
+                    </div>
+                    <div class="school-degree">{{school.degree}}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="about-title-container">
+            <div class="about-title">荣誉奖项</div>
+        </div>
+        <ul class="about-list">
+            {% for prize in site.data.about.prizes %}
+                <li class="prize-item">
+                    <div>{{prize.start}} - {{prize.end}}</div>
+                    <div class="prize-description">{{prize.description}}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="about-title-container">
+            <div class="about-title">专业技能</div>
+        </div>
+        <ul>
+            <li>
+                <img src="https://skillicons.dev/icons?i=java,kotlin,python,c,cpp,html,css,javascript"/>
+            </li>
+            <li>
+                <img src="https://skillicons.dev/icons?i=spring,vue,nodejs,pytorch,maven,gradle,cmake,mysql,sqlite,linux" />
+            </li>
+            <li>
+                <img src="https://skillicons.dev/icons?i=idea,pycharm,clion,webstorm,androidstudio,vscode,visualstudio,git,vim,md" />
+            </li>
+        </ul>
+    </div>
+</div>

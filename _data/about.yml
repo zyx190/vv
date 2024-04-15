@@ -1,0 +1,21 @@
+education:
+  - name: 北京工业大学（BJUT）
+    profession: 计算机科学与技术
+    degree: 本科
+    start: "2020.9"
+    end: 至今
+    logo: /assets/img/about/bjut_logo.jpg
+
+prizes:
+  - description: 2023年北京工业大学星火基金重点优秀项目（负责人）
+    start: "2022"
+    end: "2023"
+  - description: '第13届全国大学生电子商务"创新、创意及创业"挑战赛北京市一等奖'
+    start: "2022"
+    end: "2023"
+  - description: 第13届正大杯市场调查与分析大赛国家三等奖
+    start: "2022"
+    end: "2023"
+  - description: 第12届正大杯市场调查与分析大赛国家三等奖
+    start: "2021"
+    end: "2022"
