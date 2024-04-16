@@ -8,14 +8,29 @@ education:
 
 prizes:
   - description: 2023年北京工业大学星火基金重点优秀项目（负责人）
-    start: "2022"
-    end: "2023"
+    start: 2022
+    end: 2023
+    number: 1
   - description: '第13届全国大学生电子商务"创新、创意及创业"挑战赛北京市一等奖'
-    start: "2022"
-    end: "2023"
+    start: 2022
+    end: 2023
+    number: 1
   - description: 第13届正大杯市场调查与分析大赛国家三等奖
-    start: "2022"
-    end: "2023"
+    start: 2022
+    end: 2023
+    number: 3
   - description: 第12届正大杯市场调查与分析大赛国家三等奖
-    start: "2021"
-    end: "2022"
+    start: 2021
+    end: 2022
+    number: 3
+
+hobbies:
+  - name: 编程
+    icon: "&#x1F4BB;"
+    description: 喜欢探索任何有意思的技术
+  - name: 音乐
+    icon: "&#x1F3B5;"
+    description: 喜欢听vocal型的歌手，也喜欢唱
+  - name: 魔方
+    icon: '<i class="fa fa-cube" style="margin: 0px 2px 0px 5px;"></i>'
+    description: 三阶魔方平均12秒，也喜欢玩五阶魔方，摆烂中~

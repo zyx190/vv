@@ -40,7 +40,7 @@ layout: page
 }
 
 .container {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .edu-item {
@@ -67,11 +67,11 @@ layout: page
     text-align: center;
 }
 
-.prize-item {
+.inline-item {
     margin: 10px 0;
 }
 
-.prize-item div {
+.inline-item div {
     display: inline-block;
 }
 
@@ -102,7 +102,7 @@ layout: page
 
     <div class="container">
         <div class="about-title-container">
-            <div class="about-title">教育背景</div>
+            <div class="about-title">我的学校&#x1F3EB;</div>
         </div>
         <ul class="about-list">
             {% for school in site.data.about.education %}
@@ -122,13 +122,20 @@ layout: page
 
     <div class="container">
         <div class="about-title-container">
-            <div class="about-title">荣誉奖项</div>
+            <div class="about-title">我的荣誉墙&#x1F3C6;</div>
         </div>
         <ul class="about-list">
             {% for prize in site.data.about.prizes %}
-                <li class="prize-item">
+                <li class="inline-item">
                     <div>{{prize.start}} - {{prize.end}}</div>
                     <div class="prize-description">{{prize.description}}</div>
+                    {% if prize.number == 1 %}
+                        <div>&#x1F947;</div>
+                    {% elsif prize.number == 2 %}
+                        <div>&#x1F948;</div>
+                    {% elsif prize.number == 3 %}
+                        <div>&#x1F949;</div>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
@@ -136,7 +143,7 @@ layout: page
 
     <div class="container">
         <div class="about-title-container">
-            <div class="about-title">专业技能</div>
+            <div class="about-title">我的技能&#x1F4AA;</div>
         </div>
         <ul>
             <li>
@@ -148,6 +155,19 @@ layout: page
             <li>
                 <img src="https://skillicons.dev/icons?i=idea,pycharm,clion,webstorm,androidstudio,vscode,visualstudio,git,vim,md" alt="programming-tool"/>
             </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="about-title-container">
+            <div class="about-title">我的爱好&#x1F3A8;</div>
+        </div>
+        <ul>
+            {% for hobby in site.data.about.hobbies %}
+                <li class="inline-item">
+                    {{hobby.name}}{{hobby.icon}}：{{hobby.description}}
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>
