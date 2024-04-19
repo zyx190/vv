@@ -21,13 +21,14 @@
 
   // code elements color
   --element-string-color: #009ee1;
-  --element-key-color: #31c0e7;
+  --element-keyword-color: #31c0e7;
   --element-structure-color: #28c63b;
   --element-operation-color: var(--code-color);
   --element-number-color: #d64cad;
   --element-function-color: #ffe545;
   --element-comment-color: #7ab56d;
   --element-variable-color: #d6601a;
+  --element-annotation-color: #bbb529;
   
 
   [class^='prompt-'] {
@@ -59,7 +60,7 @@
   .highlight .kt,
   .highlight .kv {
     // color: #cf222e;
-    color: var(--element-key-color);
+    color: var(--element-keyword-color);
   }
 
   .highlight .gr {
@@ -94,7 +95,7 @@
 
   .highlight .na {
     // color: #116329;
-    color: var(--element-structure-color);
+    color: var(--element-function-color);
   }
 
   .highlight .nt {
@@ -109,7 +110,7 @@
 
   .highlight .kc {
     // color: #0550ae;
-    color: var(--element-key-color);
+    color: var(--element-keyword-color);
   }
 
   // 数字
@@ -189,7 +190,8 @@
   }
 
   .highlight .nd {
-    color: #8250df;
+    // color: #8250df;
+    color: var(--element-annotation-color);
   }
 
   // 函数

@@ -91,7 +91,7 @@ then函数返回一个CombinedModifier
 
 ``` kotlin
 class CombinedModifier(
-	private val outer: Modifier,
+    private val outer: Modifier,
     private val inner: Modifier
 ) : Modifier
 ```

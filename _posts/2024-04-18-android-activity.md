@@ -5,7 +5,7 @@ categories:
 - Android
 tags:
 - Android
-typora-root-url: "./.."
+typora-root-url: ./..
 image:
   path: "/assets/img/android-开始/android.jpg"
 date: 2024-04-18 13:22 +0800
@@ -181,11 +181,11 @@ public class MainActivity extends AppCompatActivity {
     }
     
     @Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         // 缓存状态
         savedInstanceState.putString("MyString", "Welcome back to Android");
         super.onSaveInstanceState(savedInstanceState);
-	}
+    }
 }
 ```
 

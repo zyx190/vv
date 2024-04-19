@@ -52,8 +52,8 @@ const p = new Promise((resolve, reject) => {
 
 ```js
 const result = p.then(
-	value => {
-        
+    value => {
+        // ...
     },
     reason => {
         // ...

@@ -489,7 +489,7 @@ function Person(name, age) {
     this.name = name; // 实例字段
     this.age = age;
     this.fun = function (x) {
-        statememts;
+        // ...
     } // 实例方法
 }
 let p = new Person(name, age);
@@ -640,12 +640,12 @@ class Person {
         // ...
         // 实例方法中的this指向实例对象
     }
-	static fun1() {
+    static fun1() {
         // ...
         // 静态方法中的this指向类
     }
-	// 构造器
-	constructor(name) {
+    // 构造器
+    constructor(name) {
         this.name = name
     }
 }
@@ -882,11 +882,11 @@ let arr = Array.from(map)  // 将map转换为k-v数组
 let map = new Map([[k1, v1], [k2, v2], [k3, v3]])  // 数组转换为map
 // 遍历map
 for (let entry of map) {
-	// entry = [k, v]
-	// ...
+    // entry = [k, v]
+    // ...
 }
 for (let [k, v] of map) {
-	// ...
+    // ...
 }
 ```
 
@@ -899,7 +899,7 @@ set.add(value)
 set.delete(value)
 set.has(value)
 for (let item of set) {
-	// ...
+    // ...
 }
 let set = new Set([v1, v2, v3])  // 数组转换为Set
 ```
@@ -1005,7 +1005,7 @@ export function method() {
 
 // 统一导出
 export {
-	variable,
+    variable,
     function1
 }
 

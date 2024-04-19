@@ -40,7 +40,7 @@ public class Student : INotifyPropertyChanged {
 
 ```xml
 <StackPanel 
-	Orientation="Vertical"
+    Orientation="Vertical"
     VerticalAlignment="Center">
     <TextBlock
     	Width="250"
@@ -170,9 +170,9 @@ Binding将`DataContext`的值作为数据源，`Path`属性指定数据源中的
 ```xml
 <!--可以省略点.-->
 <Label Content="{Binding Path=.}">
-	<Label.DataContext>
-		Hello
-	</Label.DataContext>
+    <Label.DataContext>
+        Hello
+    </Label.DataContext>
 </Label>
 ```
 
@@ -180,10 +180,10 @@ Binding将`DataContext`的值作为数据源，`Path`属性指定数据源中的
 
 ```xml
  <StackPanel>
-	<StackPanel.DataContext>
-		<sys:Int32>32</sys:Int32>
-	</StackPanel.DataContext>
-	<Label Content="{Binding Path=.}"></Label>
+    <StackPanel.DataContext>
+        <sys:Int32>32</sys:Int32>
+    </StackPanel.DataContext>
+    <Label Content="{Binding Path=.}"></Label>
 </StackPanel>
 ```
 
@@ -195,7 +195,7 @@ ItemsControl控件拥有`ItemsSource`属性，接收一个实现`IEnumerable`接
 
 ```c#
 public virtual DataTemplate SelectTemplate(object item, DependencyObject container) {
-	// ...
+    // ...
 }
 ```
 
@@ -252,15 +252,15 @@ _clrNodeContentTemplate.Seal();
 
 ```xml
 <StackPanel 
-	Orientation="Vertical"
-	VerticalAlignment="Center"
-	Background="Red">
-	<TextBlock
-		Text="{
-			Binding 
-			RelativeSource={
-				RelativeSource 
-					Mode=FindAncestor,
+    Orientation="Vertical"
+    VerticalAlignment="Center"
+    Background="Red">
+    <TextBlock
+        Text="{
+            Binding 
+                RelativeSource={
+                RelativeSource 
+                Mode=FindAncestor,
                     AncestorLevel=1, 
                     AncestorType={x:Type StackPanel}
                 }, 
@@ -324,7 +324,7 @@ void ValidateError(object sender, RoutedEventArgs e) {
     // 判断是否有校验错误
     if (Validation.GetHasError(MyText)) {
         // 获取校验错误信息
-         var message = Validation.GetErrors(MyText)[0].ErrorContent.ToString(); 
+        var message = Validation.GetErrors(MyText)[0].ErrorContent.ToString(); 
     }
 }
 
@@ -368,9 +368,9 @@ MultiBinding支持Binding的基本属性，如`StringFormat`、`Mode`、`Convert
 
 ```xml
 <TextBlock x:Name="MyText">
-	<TextBlock.Text>
-		<MultiBinding StringFormat="Binding1：{}，Binding2：{}">
-        	<Binding />
+    <TextBlock.Text>
+        <MultiBinding StringFormat="Binding1：{}，Binding2：{}">
+            <Binding />
             <!--other bindings-->
         </MultiBinding>
     </TextBlock.Text>

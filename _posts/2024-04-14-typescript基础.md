@@ -6,7 +6,7 @@ categories:
 tags:
 - TypeScript
 - 前端
-typora-root-url: "./.."
+typora-root-url: ./..
 image:
   path: "/assets/img/typescript基础/10b88c68-typescript-logo.png"
 date: 2024-04-14 23:18 +0800
