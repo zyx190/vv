@@ -9,7 +9,6 @@ group :test do
 end
 
 group :jekyll_plugins do
-  gem 'jekyll-compose'
   gem 'jemoji'
 end
 
