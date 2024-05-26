@@ -31,22 +31,40 @@ date: 2024-05-24 16:31
 
 ```
 PowerJekyll
+│  config.yml
 │  PowerJekyll.psd1
 │  PowerJekyll.psm1
 │
 └─core
-        blog.py
-        config.yml
-        main.py
-        parser.py
+    │  command.py
+    │  main.py
+    │  parser.py
+    │  utils.py
+    │
+    ├─commands
+    │      draft.py
+    │      list.py
+    │      open.py
+    │      post.py
+    │      publish.py
+    │      remove.py
+    │      serve.py
+    │      unpublish.py
+    │
+    └─git_commands
+            add.py
+            commit.py
+            push.py
+            status.py
+            __init__.py
 ```
 
 -   `PowerJekyll.psm1`：PowerShell模块文件，提供启动命令`blog`以及注册自动补全
 -   `PowerJekyll.psd1`：PowerShell模块清单，包含模块的元数据
--   `main.py`：脚本主程序
--   `blog.py`：博客的基本功能，包含创建、发布、打开等
--   `parser.py`：初始化命令解析
 -   `config.yml`：配置文件
+-   `core`：命令脚本及主程序目录
+-   `commands`：博客的基本命令，包含创建、发布、打开等
+-   `git_commands`：与git相关命令，执行博客的git部分操作
 
 ## argparse库
 
