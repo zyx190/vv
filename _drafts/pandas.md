@@ -11,106 +11,239 @@ tags:
 typora-root-url: ./..
 ---
 
-## pandas
+## Series
 
-pandas用于进行数据分析，实现了加载数据，整理数据，操作数据，构建模型，分析数据五个步骤
+Series是一维数据结构，能够存储各种数据类型
 
-导入pandas：`import pandas as pd`
+### 创建
 
-pandas基本数据类型有Series，DataFrame
-
-| 数据结构  | 维度 | 说明                                                         |
-| --------- | ---- | ------------------------------------------------------------ |
-| Series    | 1    | 该结构能够存储各种数据类型，比如字符数、整数、浮点数、Python 对象等，Series 用 name 和 index 属性来描述 数据值。Series 是一维数据结构，因此其维数不可以改变 |
-| DataFrame | 2    | DataFrame 是一种二维表格型数据的结构，既有行索引，也有列索引。行索引是 index，列索引是 columns。 在创建该结构时，可以指定相应的索引值 |
-
-### Series结构
-
-series结构组成
-
-<img src="https://typora-images-1309988842.cos.ap-beijing.myqcloud.com/img/15400SM1-0.gif" alt="pandas series" style="zoom: 67%;" />
-
-创建series对象
-
-调用pd.Series()构造series对象
+调用`pd.Series()`构造Series对象
 
 ```python
 s = pd.Series(data, index, dtype, copy)
 ```
 
-- data：输入的数据，传入一个数据或标量，会按索引个数重复该对象
-- index：传入索引列表，与数据个数一一对应，默认从0开始自动设置索引，若传入字典，键序列作为标签，若没有对应元素，则填充NaN
+- data：输入的数据，传入一个序列，可以是列表、元组或ndarray
+- index：传入索引列表，与数据个数一一对应，若没有对应元素，则填充NaN
 - dtype：指定数据类型
 - copy：指定是否返回视图，默认为False
 
-series索引方式
-
-- 通过下标索引：与list一样，把一行看做一个元素，从0开始通过下标访问
-- 通过标签索引
-
-series常用属性
-
-- axes：以列表形式返回所有的行索引标签
-- dtype：返回对象的数据类型
-- empty：返回一个空的Series对象
-- ndim：返回数据的维数
-- size：返回数据的元素数量
-- values：以ndarray形式返回Series对象中的数据
-- index：返回一个RangeIndex对象，用于索引和描述索引范围
-
-series常用方法
-
-- head()：返回前n条数据，默认为前5条数据
-- tail()：返回后n条数据，默认为后5条数据
-- isnull()：若series对象中含有None，则返回True
-- nonull()：若series对象中不含None，则返回True
-- isin()：判断series对象中的值是否在传入的序列中，返回每个元素对应的bool值
-
-### DataFrame结构
-
-DataFrame结构组成
-
-<img src="https://typora-images-1309988842.cos.ap-beijing.myqcloud.com/img/154931A54-0.gif" alt="Dataframe结构示意图" style="zoom:67%;" />
-
-创建DataFrame对象
+`data`参数也可以传入一个标量，默认存储一个值，当设置了`index`时，会根据`index`的长度复制标量值
 
 ```python
-pd.DataFrame(data, index, columns, dtype, copy)
+s = pd.Series(5, index=range(5))
+'''
+0,5
+1,5
+2,5
+3,5
+4,5
+'''
+```
+
+Series可以看做一个定长的字典，可直接使用字典创建一个Series
+
+```python
+data = {'a' : 0, 'b' : 1, 'c' : 2}
+s = pd.Series(data)
+# 支持字典查找
+'a' in s  # True
+```
+
+### 索引
+
+Series通过标签来索引，也支持numpy的索引方式
+
+```python
+# 自动生成数字标签，通过数字标签索引
+s = pd.Series(['a', 'b', 'c', 'd', 'e', 'f', 'g'])
+s[2]  # 一般索引
+s[2:5:2]  # 区间索引
+s[[1, 3, 5]]  # 数组索引
+s[s > 'b']  # 布尔索引
+```
+
+若Series设置了自定义标签，则使用自定义标签索引
+
+```python
+# 自定义标签
+s = pd.Series(range(7), index=['a', 'b', 'c', 'd', 'e', 'f', 'g'])
+s['b']  # 一般索引
+s['b':'f':2]  # 区间索引，步长必须为int值
+s[['b', 'd', 'f']]  # 数组索引
+s[s > 2]  # 布尔索引
+```
+
+使用Series中的`loc`属性和`iloc`属性进行索引，两个属性都是索引对象，通过`[]`访问
+
+-   `loc[]`：标签索引，与`s[]`索引相同
+-   `iloc[]`：位置下标索引
+
+>   注意，自动生成的数字标签不应理解成数组中的下标，会导致`loc`和`iloc`的理解混乱
+{: .prompt-info }
+
+### 常用属性
+
+| 属性     | 描述                            |
+| -------- | ------------------------------- |
+| `axes`   | 返回索引对象列表                |
+| `dtype`  | 返回元素数据类型                |
+| `ndim`   | 返回数据维度，始终为1           |
+| `empty`  | 返回Series是否为空              |
+| `size`   | 返回元素个数                    |
+| `values` | 以ndarray类型返回Series所有元素 |
+| `index`  | 返回索引对象                    |
+
+### 常用方法
+
+| 方法        | 描述                                                         |
+| ----------- | ------------------------------------------------------------ |
+| `head()`    | 返回前n条数据<br />- n：整数，默认为5                        |
+| `tail()`    | 返回后n条数据<br />- n：整数，默认为5                        |
+| `isnull()`  | 返回一个Series，其中每个元素表示标签对应的值是否为None或NAN  |
+| `isna()`    | 与`isnull()`等价                                             |
+| `notnull()` | 返回一个Series，其中每个元素表示标签对应的值是否不为None或NAN |
+| `isin()`    | 返回一个Series，其中每个元素表示标签对应的值是否在指定序列中<br />- values：序列 |
+
+## DataFrame
+
+DataFrame表示一个二维表结构，每列的数据类型可以不相同，通过层次索引，DataFrame可以表示更高维度的数据
+
+### 创建
+
+调用`pd.DataFrame()`创建DataFrame对象
+
+```python
+df = pd.DataFrame(data, index, columns, dtype, copy)
 ```
 
 - data：输入的数据
-- index：行标签，通过列表自定义或自动分配
-- columns：列标签，若没有传入会自动分配
+- index：行索引标签，若未指定则自动生成数字标签，若没有对应元素，则填充NaN
+- columns：列标签，若未指定则自动生成数字标签，若没有对应元素，则填充NaN
 - dtype：指定每一列的数据类型
 - copy：表示是否返回视图，默认为False
 
-DataFrame列索引操作
+通常传入一个由等长列表或ndarray组成的字典来创建DataFrame
 
-- 通过列标签索引：返回一列数据，带行标签
-- 添加新列：直接赋值数据，`df["new_col"] = new_data`
-- 调用insert(col_index, column, values)添加新列
-- 删除列：通过del删除：`def df["col"]`，通过pop()删除：`df.pop("col")`
+```python
+data = {
+    'state': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada'],
+    'year': [2000, 2001, 2002, 2001, 2002, 2003],
+    'pop': [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]
+}
+df = pd.DataFrame(data)
+'''
+   pop   state  year
+0  1.5    Ohio  2000
+1  1.7    Ohio  2001
+2  3.6    Ohio  2002
+3  2.4  Nevada  2001
+4  2.9  Nevada  2002
+5  3.2  Nevada  2003
+'''
+```
 
-DataFrame行索引操作
+在通过字典创建时列标签以字典的key为准，若设置`columns`，通常用于标签重新排序，`columns`的值需要与字典key匹配，若`columns`中存在不匹配的key，则该列填充NaN
 
-- loc[]：通过行标签索引，==注意是中括号==
+```python
+# 列重新排序
+df = pd.DataFrame(data, columns=['year', 'state', 'pop'])
+'''
+   year   state  pop
+0  2000    Ohio  1.5
+1  2001    Ohio  1.7
+2  2002    Ohio  3.6
+3  2001  Nevada  2.4
+4  2002  Nevada  2.9
+5  2003  Nevada  3.2
+'''
 
-    接受两个参数(index, col)，用逗号分隔，可以传入一个标量标签(行索引)、标签列表、按标签切片(左闭右闭)
+# 若不匹配，则填充NaN
+df1 = pd.DataFrame(data, columns=['year', 'abc', 'pop'])
+'''
+   year  abc  pop
+0  2000  NaN  1.5
+1  2001  NaN  1.7
+2  2002  NaN  3.6
+3  2001  NaN  2.4
+4  2002  NaN  2.9
+5  2003  NaN  3.2
+'''
+```
 
-- iloc[]：通过行下标索引，可以传入一个整数索引(行索引)，整数列表，整数切片(左闭右开)
+### 索引
 
-    接受两个参数(index, col)，用逗号分隔，可以传入一个
+DataFrame的索引分为行索引和列索引
 
-- 切片：`df[2:4]`选取第二行和第三行
+-   行索引：使用`loc`属性和`iloc`属性访问
+-   列索引：使用`df[]`访问
+
+```python
+'''
+       year   state  pop
+one    2000    Ohio  1.5
+two    2001    Ohio  1.7
+three  2002    Ohio  3.6
+'''
+
+# 列索引
+df['state']  # 列索引
+df[['year', 'state']]  # 多列索引
+
+# 行索引
+df.loc['two']  # 标签索引，同Series
+df.iloc[1]  # 下标索引，同Series
+```
+
+### 列索引操作
+
+添加一列有两种方法
+
+-   直接赋值：若存在匹配列，则修改该列
+-   调用`insert`方法：在指定位置插入新列
+
+```python
+# 直接赋值
+df['new_col'] = 5  # 用5填充整列
+df['new_col'] = [1, 2, 3]  # 按顺序赋值，缺失填充NaN
+df['new_col'] = pd.Series([10, 20, 30], index=['a', 'b', 'c'])  # 按匹配标签赋值，未匹配忽略
+
+# 调用insert方法
+# loc：插入列位置
+# column：列标签，通常为字符串
+# values：填充数据，可填充类型同直接赋值
+# allow_duplicates：允许插入同名列，默认为False
+df.insert(2, 'new_col', [1, 2, 3])
+```
+
+删除一列有两种方法
+
+-   通过`del`关键字删除
+-   调用`pop`方法删除
+
+```python
+# del关键字
+def df['new_col']
+
+# 调用pop方法
+poped = df.pop('new_col')  # 返回被删除的一列
+```
+
+### 行索引操作
+
+
+
+
+
+
+
+
 
 - append()：添加行，可以传入其他DataFrame对象，按行拼接
-
 - drop()：删除行，输入整数索引，若有重复行索引，则被一起删除
-
 - set_index()：传入一个列标签，指定已存在的列作为index列，或创建新的标签，自动分配索引值
 
     - 分层索引操作：传入列标签列表，转换为分层行索引，drop参数设置在更新索引时是否删除原列标签，append参数设置是否添加默认的整数索引值
-
 - reset_index()：重置index索引
 
 常用方法
