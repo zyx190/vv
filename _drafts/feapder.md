@@ -1,6 +1,6 @@
 ---
 layout: post
-title: feapder爬虫框架
+title: feapder基础指南
 categories:
 - Python
 - 爬虫
@@ -244,6 +244,10 @@ Response对requests返回的response进行了封装，因此支持response所有
 
 AirSpider是一款轻量爬虫，面对一些数据量较少，无需断点续爬，无需分布式采集的需求，可采用此爬虫
 
+### 基本使用
+
+基本实现及常用自定义如下
+
 ```python
 import feapder
 
@@ -296,6 +300,32 @@ if __name__ == "__main__":
     # 使用多线程
     AirSpiderTest(thread_count=10).start()
 ```
+
+### 数据入库
+
+AirSpider不支持自动入库，需要借助数据库接口模块手动实现，框架内封装了`MysqlDB`、`RedisDB`等模块，可以通过这些模块操作数据库
+
+```python
+from feapder.db.mysqldb import MysqlDB
+
+class AirSpiderTest(feapder.AirSpider):
+    __custom_setting__ = dict(
+        MYSQL_IP="localhost",
+        MYSQL_PORT = 3306,
+        MYSQL_DB = "feapder",
+        MYSQL_USER_NAME = "feapder",
+        MYSQL_USER_PASS = "feapder123"
+
+    )
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.db = MysqlDB()
+    # MysqlDB操作方法详见官方文档
+```
+
+## Spider
+
+Spider是一款基于redis的分布式爬虫，适用于海量数据采集，支持断点续爬、爬虫报警、数据自动入库等功能
 
 
 
