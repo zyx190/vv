@@ -56,10 +56,7 @@ Compose提供了基本UI组件以及Row、Column、Box三种布局，父组件�
 
 -   border：设置组件边框，可设置粗细、颜色等
 
--   padding：设置组件的边距，在Compose中没有margin，通过background和padding共同作用实现内边距和外边距，在background之前的padding为外边距，background之后的padding为内边距，当没有background时，padding默认为外边距
-
-    >   background和padding需要设置在width、height相关设置之前
-    {: .prompt-info }
+-   padding：设置组件的边距，在Compose中没有margin，与background共同作用来实现内边距，在background之前调用padding表示外边距
 
 -   offset：设置组件的偏移量，需要注意该函数的调用顺序
 
@@ -108,6 +105,9 @@ foldIn进行正向遍历，foldOut进行反向遍历
 fun <R> foldIn(initial: R, operation: (R, Element) -> R): R
 fun <R> foldOut(initial: R, operation: (Element, R) -> R): R
 ```
+
+> Modifier的详细介绍参考：[图解 Modifier](https://jetpackcompose.cn/docs/principle/modifierStructure)
+{: .prompt-tip }
 
 ### 基本UI组件
 
