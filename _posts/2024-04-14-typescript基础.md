@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TypeScript基础指南
+title: TypeScript基础
 categories:
 - 前端
 tags:

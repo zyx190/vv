@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript基础指南
+title: JavaScript基础
 categories:
 - 前端
 tags:

@@ -74,7 +74,7 @@ Dot-product Attention将h和z向量经过线性层$W^h$和$W^z$，得到两个�
 
 <img src="/assets/img/nlp基础/image-20240701104022757.png" alt="image-20240701104022757" style="zoom:50%;" />
 
-Additive Attention将h和z向量经过线性层后相加，得到一个向量，经过$tanh$激活后，再经过一个线性层
+Additive Attention将h和z向量经过线性层后相加，得到一个向量，经过$\tanh$激活后，再经过一个线性层
 
 <img src="/assets/img/nlp基础/image-20240701104201270.png" alt="image-20240701104201270" style="zoom:50%;" />
 
