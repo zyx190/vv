@@ -1,0 +1,325 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4000/</id>
+  <title>Baymax's Blog</title>
+  <subtitle>这里是Baymax小振的博客，一个热爱编程、探索科技世界的程序员的小天地。</subtitle>
+  <updated>2024-07-07T02:07:05+08:00</updated>
+  <author>
+    <name>John Wei</name>
+    <uri>http://localhost:4000/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="zh-CN"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
+  <rights> © 2024 John Wei </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>《机器学习》——集成学习</title>
+    <link href="http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="《机器学习》——集成学习" />
+    <published>2024-07-01T15:02:00+08:00</published>
+  
+    <updated>2024-07-01T15:02:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</id>
+    <content src="http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
+    <author>
+      <name>John Wei</name>
+    </author>
+
+  
+    
+    <category term="人工智能" />
+    
+    <category term="机器学习" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      个体与集成
+
+集成学习将多个个体学习器的学习结果通过某种策略结合起来，每个个体学习器可以使用相同的学习算法，称为基学习器，也可以使用不同的学习算法
+
+
+
+集成学习通常针对弱学习器进行，个体学习器应该有一定的准确性和多样性，相互之间应该尽可能独立，这是集成学习研究的核心
+
+集成学习方法可分为两类
+
+
+  序列化方法：个体学习器之间强依赖关系，必须串行生成，如Boosting
+  并行化方法：个体学习器之间不存在强依赖关系，可同时生成，如Bagging和随机森林
+
+
+Boosting
+
+Boosting是一类可将弱学习器提升到强学习器的算法，基本流程是先训练出一个基学习器，根据基学习器的表现对样本分布进行调整，使做错的样本收到更多关注，基于调整后的样本来训练下一个基学习器，直到训练出T个学习器，将T个学习器加权结合
+
+Boosting算法中最著名的是AdaBoost算法
+
+
+
+Boost...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>《机器学习》——贝叶斯分类器</title>
+    <link href="http://localhost:4000/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/" rel="alternate" type="text/html" title="《机器学习》——贝叶斯分类器" />
+    <published>2024-06-29T21:16:00+08:00</published>
+  
+    <updated>2024-06-29T21:16:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/</id>
+    <content src="http://localhost:4000/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/" />
+    <author>
+      <name>John Wei</name>
+    </author>
+
+  
+    
+    <category term="人工智能" />
+    
+    <category term="机器学习" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      贝叶斯决策论
+
+贝叶斯判定准则：为最小化总体风险，只需在每个样本上选择那个能使条件风险最小的类别标记
+
+\[h^*(x)=\arg\min\limits_{c\in\Upsilon}R(c\vert x)\]
+
+$h^*(x)$称为贝叶斯最优分类器，对应的总体风险称为贝叶斯风险
+
+贝叶斯判定准则基于后验概率$P(c\vert x)$，根据贝叶斯定理有
+
+\[P(c\vert x)=\frac{P(c)P(x\vert c)}{P(x)}\]
+
+其中$P(c)$可以根据各类样本出现的频率进行估计
+
+极大似然估计
+
+估计类条件概率$P(x\vert c)$的常用策略是先假定其具有某种确定的概率分布，再基于训练样本对概率分布的参数进行估计
+
+令$D_c$为训练集D中第c类样本的集合
+
+\[\begin{aligned}
+P(D_c\vert\theta_c)&amp;amp;=\prod\limi...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>《机器学习》——神经网络</title>
+    <link href="http://localhost:4000/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="alternate" type="text/html" title="《机器学习》——神经网络" />
+    <published>2024-06-21T17:08:00+08:00</published>
+  
+    <updated>2024-06-21T17:08:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</id>
+    <content src="http://localhost:4000/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
+    <author>
+      <name>John Wei</name>
+    </author>
+
+  
+    
+    <category term="人工智能" />
+    
+    <category term="机器学习" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      神经元模型
+
+
+
+感知机与多层网络
+
+感知机由两层神经元组成，包含输入层和输出层，只有输出层拥有激活函数
+
+其中的权重和阈值可以通过学习得到，更一般地，将阈值看做一个固定输入为-1的哑节点的连接权重，权重和阈值的学习就统一为权重的学习
+
+感知机的学习规则，设样本$(\boldsymbol x,y)$，当前感知机的输出为$\hat y$
+
+\[\omega_i \leftarrow \omega_i+\Delta\omega_i\\
+\Delta\omega=\eta(y-\hat y)x_i\]
+
+每层神经元与下一层神经元全互联，不存在跨层连接、同层连接，这样的网络称为多层前馈网络，其中隐层和输出层神经元具有激活函数，对输入进行加工
+
+误差逆传播算法
+
+误差逆传播算法(BP)可用于训练多层前馈网络，也可训练递归神经网络
+
+
+
+除上图标记外，第j个输出神经元的阈值为$\theta_j$...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>《机器学习》——决策树</title>
+    <link href="http://localhost:4000/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/" rel="alternate" type="text/html" title="《机器学习》——决策树" />
+    <published>2024-06-15T23:20:00+08:00</published>
+  
+    <updated>2024-06-15T23:20:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/</id>
+    <content src="http://localhost:4000/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/" />
+    <author>
+      <name>John Wei</name>
+    </author>
+
+  
+    
+    <category term="人工智能" />
+    
+    <category term="机器学习" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      基本流程
+
+决策树是基于树结构来进行分类，叶子节点对应决策结果，分支节点对应一个属性测试
+
+决策树的递归过程有三种情况导致返回
+
+
+  当前节点包含的样本全部判定为同一类别，无需划分
+  当前属性集为空，或是所有样本在所有属性上取值相同，无法划分，该节点作为叶子节点
+  当前节点包含的样本集为空，无法划分，该节点作为叶子节点，决策结果为父节点样本最多的类别
+
+
+划分选择
+
+决策树的每个节点需要从属性集中选择最优的划分属性，再根据该属性进行样本集划分
+
+信息熵
+
+通常使用信息熵度量样本集合纯度，设样本集D中第k类样本所占比例为$p_k$，则信息熵定义为
+
+\[Ent(D)=-\sum\limits^{\vert C\vert}_{k=1}p_k\log_2p_k\]
+
+信息熵的值越小，D的分类纯度越高
+
+信息增益
+
+对于一个特定属性a可以计算它的信息增益，设属性a的取值为$a^1,a^...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>《机器学习》——线性模型</title>
+    <link href="http://localhost:4000/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="alternate" type="text/html" title="《机器学习》——线性模型" />
+    <published>2024-06-15T23:19:00+08:00</published>
+  
+    <updated>2024-06-15T23:19:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</id>
+    <content src="http://localhost:4000/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" />
+    <author>
+      <name>John Wei</name>
+    </author>
+
+  
+    
+    <category term="人工智能" />
+    
+    <category term="机器学习" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      基本形式
+
+对样本$x=(x_1;x_2;x_3;…;x_d)$，有
+
+\[f(x_i)=\omega^Tx+b\]
+
+其中$\omega=(\omega_1;\omega_2;…;\omega_d)$
+
+线性回归
+
+离散属性处理
+
+
+  具有序关系的属性可以连续化，如身高
+  不具有序关系的属性转化为k维向量
+
+
+一元线性回归
+
+对于一元线性回归
+
+\[f(x_i)=\omega x_i+b\]
+
+使用均方误差来衡量$f(x)$与$y$​的差别，并使其最小化来求解模型的方法称为最小二乘法
+
+最小二乘参数估计
+
+\[\begin{aligned}
+E(\omega,b)&amp;amp;=\sum\limits_{i=1}^m(f(x_i)-y_i)^2\\
+\frac{\partial E(\omega,b)}{\partial \omega}&amp;amp;=2(\omega\sum\limi...
+    </summary>
+  
+
+  </entry>
+
+</feed>
+
+
