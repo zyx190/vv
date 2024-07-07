@@ -34,18 +34,18 @@
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="前言" />
 <meta property="og:description" content="前言" />
-<link rel="canonical" href="http://localhost:4000/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/" />
-<meta property="og:url" content="http://localhost:4000/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/" />
+<link rel="canonical" href="https://baymaxam.top/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/" />
+<meta property="og:url" content="https://baymaxam.top/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/" />
 <meta property="og:site_name" content="Baymax’s Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-03-14T19:24:00+08:00" />
-<meta property="og:image" content="http://localhost:4000/assets/img/favicons/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image" content="http://localhost:4000/assets/img/favicons/avatar.png" />
+<meta property="og:image" content="https://baymaxam.top/assets/img/favicons/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:image" content="https://baymaxam.top/assets/img/favicons/avatar.png" />
 <meta property="twitter:title" content="SharpPcap数据包解析原理" />
 <meta name="twitter:site" content="@" />
 <meta name="google-site-verification" content="TGMxMQ337dKI-wX4cXqgjK7Ph-4ly5GYpjvCstU0dO8" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-14T19:24:00+08:00","datePublished":"2024-03-14T19:24:00+08:00","description":"前言","headline":"SharpPcap数据包解析原理","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/"},"url":"http://localhost:4000/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-14T19:24:00+08:00","datePublished":"2024-03-14T19:24:00+08:00","description":"前言","headline":"SharpPcap数据包解析原理","mainEntityOfPage":{"@type":"WebPage","@id":"https://baymaxam.top/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/"},"url":"https://baymaxam.top/posts/sharppcap%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1848,7 +1848,7 @@
 
 <p>我们画个图来明确这些属性表示的部分</p>
 
-<p><a href="/assets/image-20240314153528345.png" class="popup img-link  shimmer"><img src="/assets/image-20240314153528345.png" alt="image-20240314153528345" loading="lazy"></a></p>
+<p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314153528345.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314153528345.png" alt="image-20240314153528345" loading="lazy"></a></p>
 
 <p>可以看到BytesLength才是表示实际可以处理的数组长度，包括在构造器中也有体现，<code class="language-plaintext highlighter-rouge">BytesLength</code>设置为<code class="language-plaintext highlighter-rouge">bytesLength</code>和<code class="language-plaintext highlighter-rouge">bytes.Length</code>的最小值。Offset表示在数组中的一个偏移，Length表示Offset之后的长度，数据包解析的首部和负载的划分就是归功于这两个属性，下面我们就来看看它是如何划分的</p>
 
@@ -1934,7 +1934,7 @@
 
 <p>构造<code class="language-plaintext highlighter-rouge">EthernetPacket</code>时传入的<code class="language-plaintext highlighter-rouge">ByteArraySegment</code>中<code class="language-plaintext highlighter-rouge">Bytes</code>为整个数据包，<code class="language-plaintext highlighter-rouge">Length</code>和<code class="language-plaintext highlighter-rouge">BytesLength</code>都等于<code class="language-plaintext highlighter-rouge">Bytes.Length</code>，<code class="language-plaintext highlighter-rouge">Offset</code>为0，调用<code class="language-plaintext highlighter-rouge">NextSegment()</code>前设置<code class="language-plaintext highlighter-rouge">Length = 14</code>（以太网首部长度为14B)，如下图所示</p>
 
-<p><a href="/assets/image-20240314161802543.png" class="popup img-link  shimmer"><img src="/assets/image-20240314161802543.png" alt="image-20240314161802543" loading="lazy"></a></p>
+<p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314161802543.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314161802543.png" alt="image-20240314161802543" loading="lazy"></a></p>
 
 <p>下面用画图来表示每一步中每个变量的位置</p>
 
@@ -1942,12 +1942,12 @@
   <li>
     <p><code class="language-plaintext highlighter-rouge">var startingOffset = Offset + Length;</code></p>
 
-    <p><a href="/assets/image-20240314161945296.png" class="popup img-link  shimmer"><img src="/assets/image-20240314161945296.png" alt="image-20240314161945296" loading="lazy"></a></p>
+    <p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314161945296.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314161945296.png" alt="image-20240314161945296" loading="lazy"></a></p>
   </li>
   <li>
     <p><code class="language-plaintext highlighter-rouge">segmentLength = Math.Min(segmentLength, BytesLength - startingOffset);</code></p>
 
-    <p><a href="/assets/image-20240314162137013.png" class="popup img-link  shimmer"><img src="/assets/image-20240314162137013.png" alt="image-20240314162137013" loading="lazy"></a></p>
+    <p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314162137013.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314162137013.png" alt="image-20240314162137013" loading="lazy"></a></p>
   </li>
   <li>
     <p><code class="language-plaintext highlighter-rouge">var bytesLength = startingOffset + segmentLength;</code></p>
@@ -1957,7 +1957,7 @@
   <li>
     <p><code class="language-plaintext highlighter-rouge">new ByteArraySegment(Bytes, startingOffset, segmentLength, bytesLength);</code></p>
 
-    <p><a href="/assets/image-20240314161444568.png" class="popup img-link  shimmer"><img src="/assets/image-20240314161444568.png" alt="image-20240314161444568" loading="lazy"></a></p>
+    <p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314161444568.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314161444568.png" alt="image-20240314161444568" loading="lazy"></a></p>
   </li>
 </ol>
 
@@ -1967,7 +1967,7 @@
 
 <p>假设有下图所示的<code class="language-plaintext highlighter-rouge">ByteArraySegment</code></p>
 
-<p><a href="/assets/image-20240314163339691.png" class="popup img-link  shimmer"><img src="/assets/image-20240314163339691.png" alt="image-20240314163339691" loading="lazy"></a></p>
+<p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314163339691.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314163339691.png" alt="image-20240314163339691" loading="lazy"></a></p>
 
 <ol>
   <li>
@@ -1975,12 +1975,12 @@
 
     <p>Offset就是该首部的起始索引</p>
 
-    <p><a href="/assets/image-20240314163808828.png" class="popup img-link  shimmer"><img src="/assets/image-20240314163808828.png" alt="image-20240314163808828" loading="lazy"></a></p>
+    <p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314163808828.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314163808828.png" alt="image-20240314163808828" loading="lazy"></a></p>
   </li>
   <li>
     <p>调用<code class="language-plaintext highlighter-rouge">NextSegment()</code>获取负载</p>
 
-    <p><a href="/assets/image-20240314164807903.png" class="popup img-link  shimmer"><img src="/assets/image-20240314164807903.png" alt="image-20240314164807903" loading="lazy"></a></p>
+    <p><a href="/posts/sharppcap数据包解析原理/assets/image-20240314164807903.png" class="popup img-link  shimmer"><img src="/posts/sharppcap数据包解析原理/assets/image-20240314164807903.png" alt="image-20240314164807903" loading="lazy"></a></p>
   </li>
 </ol>
 

@@ -34,18 +34,18 @@
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="前言" />
 <meta property="og:description" content="前言" />
-<link rel="canonical" href="http://localhost:4000/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/" />
-<meta property="og:url" content="http://localhost:4000/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/" />
+<link rel="canonical" href="https://baymaxam.top/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/" />
+<meta property="og:url" content="https://baymaxam.top/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/" />
 <meta property="og:site_name" content="Baymax’s Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-03-08T00:00:00+08:00" />
-<meta property="og:image" content="http://localhost:4000/assets/img/favicons/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image" content="http://localhost:4000/assets/img/favicons/avatar.png" />
+<meta property="og:image" content="https://baymaxam.top/assets/img/favicons/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:image" content="https://baymaxam.top/assets/img/favicons/avatar.png" />
 <meta property="twitter:title" content="KMP代码实现详解" />
 <meta name="twitter:site" content="@" />
 <meta name="google-site-verification" content="TGMxMQ337dKI-wX4cXqgjK7Ph-4ly5GYpjvCstU0dO8" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-08T00:00:00+08:00","datePublished":"2024-03-08T00:00:00+08:00","description":"前言","headline":"KMP代码实现详解","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/"},"url":"http://localhost:4000/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-03-08T00:00:00+08:00","datePublished":"2024-03-08T00:00:00+08:00","description":"前言","headline":"KMP代码实现详解","mainEntityOfPage":{"@type":"WebPage","@id":"https://baymaxam.top/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/"},"url":"https://baymaxam.top/posts/KMP%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1159,7 +1159,7 @@
 
 <p>现在我们来画个一般情况的图，i和j的指向如图所示</p>
 
-<p><a href="/assets/image-20240307230641422.png" class="popup img-link  shimmer"><img src="/assets/image-20240307230641422.png" alt="image-20240307230641422" loading="lazy"></a></p>
+<p><a href="/posts/KMP代码实现详解/assets/image-20240307230641422.png" class="popup img-link  shimmer"><img src="/posts/KMP代码实现详解/assets/image-20240307230641422.png" alt="image-20240307230641422" loading="lazy"></a></p>
 
 <p>现在我们要填入next[i + 1]，那么<strong>考虑p[0, i]的子串</strong>，即图中红框标出的子串</p>
 
@@ -1204,7 +1204,7 @@
 
 <p>next[j]的值是长度为j的子串的最长重合前后缀长度。这里需要理解两个信息，一个是长度为j的子串，当我们调用next[j]时，我们的视角就应该放到p[0, j - 1]的子串上了，也就是之前比较的前缀（不包含最后一个字符）。另一个是j = next[j]，这一句实际上就是<strong>定位到p[0, j - 1]这个子串中的重合前后缀的最后一个字符的下一个字符</strong>（模糊点理解就是定位到前缀的前缀，j回退一步），如下图所示</p>
 
-<p><a href="/assets/image-20240307232133987.png" class="popup img-link  shimmer"><img src="/assets/image-20240307232133987.png" alt="image-20240307232133987" loading="lazy"></a></p>
+<p><a href="/posts/KMP代码实现详解/assets/image-20240307232133987.png" class="popup img-link  shimmer"><img src="/posts/KMP代码实现详解/assets/image-20240307232133987.png" alt="image-20240307232133987" loading="lazy"></a></p>
 
 <p>图中绿框的部分就是上一次循环比较的前缀，假设蓝框部分该前缀内的重合前后缀，当前循环执行j = next[j]后，在下一次循环中，我们比较p[i]和p[j]，若p[i] = p[j]，那么<strong>绿框部分就是当前红框子串的重合前后缀</strong>（因为蓝框部分重合，下一个字符还相等，那么继续重合）</p>
 
@@ -1330,7 +1330,7 @@
 
 <p>我们来看过程中的第9步，如下图所示</p>
 
-<p><a href="/assets/image-20240308102557348.png" class="popup img-link  shimmer"><img src="/assets/image-20240308102557348.png" alt="image-20240308102557348" loading="lazy"></a></p>
+<p><a href="/posts/KMP代码实现详解/assets/image-20240308102557348.png" class="popup img-link  shimmer"><img src="/posts/KMP代码实现详解/assets/image-20240308102557348.png" alt="image-20240308102557348" loading="lazy"></a></p>
 
 <p>上图中s[i]和p[j]不匹配时，前面的部分是比较过且匹配的，此时考虑next[j]表示的模式子串（蓝框部分）和对应的匹配子串（绿框部分），模式子串的重合前后缀的长度就是next[j]的值，next[3] = 1，则图中左下红框部分是模式子串的重合前缀，紫框部分就是与它重合的后缀，同时由于模式子串与匹配子串相等（绿框部分和蓝框部分相同），所以<strong>两个子串的重合后缀相等</strong>（紫框部分和右上红框部分相等），最终得到<strong>模式子串的重合前缀和匹配子串的重合后缀相等</strong>（两个红框部分相等）。</p>
 

@@ -34,18 +34,18 @@
 <meta property="og:locale" content="zh_CN" />
 <meta name="description" content="个体与集成" />
 <meta property="og:description" content="个体与集成" />
-<link rel="canonical" href="http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
-<meta property="og:url" content="http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
+<link rel="canonical" href="https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
+<meta property="og:url" content="https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
 <meta property="og:site_name" content="Baymax’s Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-07-01T15:02:00+08:00" />
-<meta property="og:image" content="http://localhost:4000/assets/img/favicons/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image" content="http://localhost:4000/assets/img/favicons/avatar.png" />
+<meta property="og:image" content="https://baymaxam.top/assets/img/favicons/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:image" content="https://baymaxam.top/assets/img/favicons/avatar.png" />
 <meta property="twitter:title" content="《机器学习》——集成学习" />
 <meta name="twitter:site" content="@" />
 <meta name="google-site-verification" content="TGMxMQ337dKI-wX4cXqgjK7Ph-4ly5GYpjvCstU0dO8" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-07-01T15:02:00+08:00","datePublished":"2024-07-01T15:02:00+08:00","description":"个体与集成","headline":"《机器学习》——集成学习","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"},"url":"http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-07-01T15:02:00+08:00","datePublished":"2024-07-01T15:02:00+08:00","description":"个体与集成","headline":"《机器学习》——集成学习","mainEntityOfPage":{"@type":"WebPage","@id":"https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"},"url":"https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1127,7 +1127,7 @@
 
 <p>集成学习将多个个体学习器的学习结果通过某种策略结合起来，每个个体学习器可以使用相同的学习算法，称为基学习器，也可以使用不同的学习算法</p>
 
-<p><a href="./assets/image-20240630155556916.png" class="popup img-link  shimmer"><img src="./assets/image-20240630155556916.png" alt="image-20240630155556916" style="zoom:67%;" loading="lazy"></a></p>
+<p><a href="/posts/ml-集成学习/assets/image-20240630155556916.png" class="popup img-link  shimmer"><img src="/posts/ml-集成学习/assets/image-20240630155556916.png" alt="image-20240630155556916" style="zoom:67%;" loading="lazy"></a></p>
 
 <p>集成学习通常针对弱学习器进行，个体学习器应该有一定的<strong>准确性和多样性</strong>，相互之间应该尽可能独立，这是集成学习研究的核心</p>
 
@@ -1144,7 +1144,7 @@
 
 <p>Boosting算法中最著名的是AdaBoost算法</p>
 
-<p><a href="/assets/image-20240630165236022.png" class="popup img-link  shimmer"><img src="/assets/image-20240630165236022.png" alt="image-20240630165236022" loading="lazy"></a></p>
+<p><a href="/posts/ml-集成学习/assets/image-20240630165236022.png" class="popup img-link  shimmer"><img src="/posts/ml-集成学习/assets/image-20240630165236022.png" alt="image-20240630165236022" loading="lazy"></a></p>
 
 <p>Boosting算法要求基学习器能对特定的数据分布进行学习，这可通过<strong>重赋权法</strong>实施，即在训练过程的每一轮中，根据样本分布为每个训练样本重新赋予一个权重</p>
 
@@ -1154,7 +1154,7 @@
 
 <p>Bagging基于自主采样法，对训练集进行m次有放回随机采样，产生一个采样集，采样出T个采样集，基于这些采样集训练出T个基学习器，再将基学习器进行结合，对于分类任务，通常使用简单投票法结合，对于回归任务，通常使用简单平均法结合</p>
 
-<p><a href="/assets/image-20240630170824747.png" class="popup img-link  shimmer"><img src="/assets/image-20240630170824747.png" alt="image-20240630170824747" style="zoom:67%;" loading="lazy"></a></p>
+<p><a href="/posts/ml-集成学习/assets/image-20240630170824747.png" class="popup img-link  shimmer"><img src="/posts/ml-集成学习/assets/image-20240630170824747.png" alt="image-20240630170824747" style="zoom:67%;" loading="lazy"></a></p>
 
 <h2 id="随机森林"><span class="me-2">随机森林</span><a href="#随机森林" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1200,7 +1200,7 @@
 
 <p>当初级学习器输出为类概率，次级学习器使用多响应线性回归（MLR）时，效果较好</p>
 
-<p><a href="/assets/image-20240630181508011.png" class="popup img-link  shimmer"><img src="/assets/image-20240630181508011.png" alt="image-20240630181508011" style="zoom:67%;" loading="lazy"></a></p>
+<p><a href="/posts/ml-集成学习/assets/image-20240630181508011.png" class="popup img-link  shimmer"><img src="/posts/ml-集成学习/assets/image-20240630181508011.png" alt="image-20240630181508011" style="zoom:67%;" loading="lazy"></a></p>
 
 <h2 id="多样性"><span class="me-2">多样性</span><a href="#多样性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1220,7 +1220,7 @@
 
 <p>设共有m个样本，构造两个分类器预测结果的列联表</p>
 
-<p><a href="/assets/img/ml-集成学习/image-20240701143921502.png" class="popup img-link  shimmer"><img src="/assets/img/ml-集成学习/image-20240701143921502.png" alt="image-20240701143921502" style="zoom: 67%;" loading="lazy"></a></p>
+<p><a href="/posts/ml-集成学习/assets/image-20240701143921502.png" class="popup img-link  shimmer"><img src="/posts/ml-集成学习/assets/image-20240701143921502.png" alt="image-20240701143921502" style="zoom: 67%;" loading="lazy"></a></p>
 
 <ul>
   <li>

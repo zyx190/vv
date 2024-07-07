@@ -1,17 +1,17 @@
 
 
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <id>http://localhost:4000/</id>
+  <id>https://baymaxam.top/</id>
   <title>Baymax's Blog</title>
   <subtitle>这里是Baymax小振的博客，一个热爱编程、探索科技世界的程序员的小天地。</subtitle>
-  <updated>2024-07-07T02:07:05+08:00</updated>
+  <updated>2024-07-07T18:05:00+08:00</updated>
   <author>
     <name>John Wei</name>
-    <uri>http://localhost:4000/</uri>
+    <uri>https://baymaxam.top/</uri>
   </author>
-  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="self" type="application/atom+xml" href="https://baymaxam.top/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="zh-CN"
-    href="http://localhost:4000/"/>
+    href="https://baymaxam.top/"/>
   <generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator>
   <rights> © 2024 John Wei </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
@@ -21,13 +21,13 @@
   
   <entry>
     <title>《机器学习》——集成学习</title>
-    <link href="http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="《机器学习》——集成学习" />
+    <link href="https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="《机器学习》——集成学习" />
     <published>2024-07-01T15:02:00+08:00</published>
   
     <updated>2024-07-01T15:02:00+08:00</updated>
   
-    <id>http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</id>
-    <content src="http://localhost:4000/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
+    <id>https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</id>
+    <content src="https://baymaxam.top/posts/ml-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" />
     <author>
       <name>John Wei</name>
     </author>
@@ -80,13 +80,13 @@ Boost...
   
   <entry>
     <title>《机器学习》——贝叶斯分类器</title>
-    <link href="http://localhost:4000/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/" rel="alternate" type="text/html" title="《机器学习》——贝叶斯分类器" />
+    <link href="https://baymaxam.top/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/" rel="alternate" type="text/html" title="《机器学习》——贝叶斯分类器" />
     <published>2024-06-29T21:16:00+08:00</published>
   
     <updated>2024-06-29T21:16:00+08:00</updated>
   
-    <id>http://localhost:4000/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/</id>
-    <content src="http://localhost:4000/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/" />
+    <id>https://baymaxam.top/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/</id>
+    <content src="https://baymaxam.top/posts/ml-%E8%B4%9D%E5%8F%B6%E6%96%AF/" />
     <author>
       <name>John Wei</name>
     </author>
@@ -137,13 +137,13 @@ P(D_c\vert\theta_c)&amp;amp;=\prod\limi...
   
   <entry>
     <title>《机器学习》——神经网络</title>
-    <link href="http://localhost:4000/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="alternate" type="text/html" title="《机器学习》——神经网络" />
+    <link href="https://baymaxam.top/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="alternate" type="text/html" title="《机器学习》——神经网络" />
     <published>2024-06-21T17:08:00+08:00</published>
   
     <updated>2024-06-21T17:08:00+08:00</updated>
   
-    <id>http://localhost:4000/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</id>
-    <content src="http://localhost:4000/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
+    <id>https://baymaxam.top/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</id>
+    <content src="https://baymaxam.top/posts/ml-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
     <author>
       <name>John Wei</name>
     </author>
@@ -196,13 +196,13 @@ P(D_c\vert\theta_c)&amp;amp;=\prod\limi...
   
   <entry>
     <title>《机器学习》——决策树</title>
-    <link href="http://localhost:4000/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/" rel="alternate" type="text/html" title="《机器学习》——决策树" />
+    <link href="https://baymaxam.top/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/" rel="alternate" type="text/html" title="《机器学习》——决策树" />
     <published>2024-06-15T23:20:00+08:00</published>
   
     <updated>2024-06-15T23:20:00+08:00</updated>
   
-    <id>http://localhost:4000/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/</id>
-    <content src="http://localhost:4000/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/" />
+    <id>https://baymaxam.top/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/</id>
+    <content src="https://baymaxam.top/posts/ml-%E5%86%B3%E7%AD%96%E6%A0%91/" />
     <author>
       <name>John Wei</name>
     </author>
@@ -258,13 +258,13 @@ P(D_c\vert\theta_c)&amp;amp;=\prod\limi...
   
   <entry>
     <title>《机器学习》——线性模型</title>
-    <link href="http://localhost:4000/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="alternate" type="text/html" title="《机器学习》——线性模型" />
+    <link href="https://baymaxam.top/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="alternate" type="text/html" title="《机器学习》——线性模型" />
     <published>2024-06-15T23:19:00+08:00</published>
   
     <updated>2024-06-15T23:19:00+08:00</updated>
   
-    <id>http://localhost:4000/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</id>
-    <content src="http://localhost:4000/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" />
+    <id>https://baymaxam.top/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</id>
+    <content src="https://baymaxam.top/posts/ml-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" />
     <author>
       <name>John Wei</name>
     </author>
