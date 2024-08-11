@@ -81,3 +81,186 @@ async def root():
 
 ### API参数
 
+路径参数
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    return {"item_id": item_id}
+```
+
+-   路径参数用`{}`包围
+-   声明路径参数对应的形参，使用类型标记可以自动转换为声明的类型，默认类型为str
+
+通过自定义枚举类并继承str，可以实现枚举映射
+
+```python
+from enum import Enum
+
+from fastapi import FastAPI
+
+# 定义枚举类，继承str，可将str参数自动映射到对应的枚举值
+class ModelName(str, Enum):
+    alexnet = "alexnet"
+    resnet = "resnet"
+    lenet = "lenet"
+
+
+app = FastAPI()
+
+
+@app.get("/models/{model_name}")
+async def get_model(model_name: ModelName):
+    return {"model_name": model_name, "message": "Have some residuals"}
+```
+
+当路径参数也表示一个路径，此时需要标记`:path`，参数类型为str
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+# file_path也需要以'/'开头
+@app.get("/files/{file_path:path}")
+async def read_file(file_path: str):
+    # /files//home/johndoe/myfile.txt
+    return {"file_path": file_path}
+```
+
+---
+
+查询参数
+
+对于未匹配到路径参数的形参，FastAPI会自动解释为查询参数，即URL中`?`后的键值对
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+# 支持默认值、可选参数
+# 对于bool值，当参数不为空时，为True，否则为False
+@app.get("/items")
+async def read_item(item_id: int = 1, q: str | None = None, short: bool = False):
+    item = {"item_id": item_id}
+    return item
+```
+
+### 请求体
+
+对于POST方法，数据通过请求体传输，此时需要通过Pydantic定义请求数据
+
+```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+# 继承BaseModel类定义数据模型，并标记属性数据类型
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+app = FastAPI()
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+```
+
+### 数据校验
+
+查询参数与字符串校验
+
+查询参数还支持更多的校验，通过Query对象实现，此时参数显式地声明为查询参数
+
+```python
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+# q为可选参数，default设置默认值为None
+# q最大长度为50，最小长度为3，匹配正则表达式
+@app.get("/items/")
+async def read_items(
+    q: Union[str, None] = Query(
+        default=None, 
+        min_length=3, 
+        max_length=50, 
+        pattern="^fixedquery$"
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+```
+
+声明为必需参数
+
+-   `q: str = Query(min_length=3)`：类型标记不包含None
+-   `q: str = Query(default=..., min_length=3)`：使用省略号表示必需参数
+-   `q: Union[str, None] = Query(default=..., min_length=3)`：表示该参数必须传递，即使它是None
+-   `q: str = Query(default=Required, min_length=3)`：使用`pydantic.Required`声明必需参数
+
+通过将查询参数标记为列表，可以使参数接收多个值
+
+```python
+from typing import List, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[List[str], None] = Query(default=None)):
+    query_items = {"q": q}
+    return query_items
+```
+
+Query的其他参数
+
+-   Query可以接收自定义的键值对，通过参数获取
+-   设置`alias`参数可以设置URL参数的别名
+-   设置`deprecated=True`表示该参数将被弃用
+
+---
+
+路径参数与数值校验
+
+路径参数通过Path对象实现校验，Path对象具有和Query对象相同的参数，Path参数总是必需的
+
+```python
+from typing import Annotated
+
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get")],
+    q: Annotated[str | None, Query(alias="item-query")] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+```
+
+数值校验
+
+-   `ge=<value>`：大于等于
+-   `gt`、`le`、`lt`
