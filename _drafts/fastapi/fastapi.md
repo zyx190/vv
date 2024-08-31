@@ -88,7 +88,6 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-
 @app.get("/items/{item_id}")
 async def read_item(item_id: int):
     return {"item_id": item_id}
@@ -110,9 +109,7 @@ class ModelName(str, Enum):
     resnet = "resnet"
     lenet = "lenet"
 
-
 app = FastAPI()
-
 
 @app.get("/models/{model_name}")
 async def get_model(model_name: ModelName):
@@ -161,19 +158,139 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 # 继承BaseModel类定义数据模型，并标记属性数据类型
+"""
+{
+    "name": "Foo",
+    "description": "The pretender",
+    "price": 42.0,
+    "tax": 3.2
+}
+"""
 class Item(BaseModel):
     name: str
     description: str | None = None
     price: float
     tax: float | None = None
 
-
 app = FastAPI()
-
 
 @app.post("/items/")
 async def create_item(item: Item):
     return item
+```
+
+一个BaseModel表示一个请求体参数，可以同时传输多个请求体参数
+
+```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+"""
+{
+    "item": {
+        "name": "Foo",
+        "description": "The pretender",
+        "price": 42.0,
+        "tax": 3.2
+    },
+    "user": {
+        "username": "dave",
+        "full_name": "Dave Grohl"
+    }
+}
+"""
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, user: User):
+    results = {"item_id": item_id, "item": item, "user": user}
+    return results
+```
+
+当一个请求体中包含嵌套请求体和单个键值对，需要使用Body对象指明单个键值对参数
+
+```python
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+"""
+{
+    "item": {
+        "name": "Foo",
+        "description": "The pretender",
+        "price": 42.0,
+        "tax": 3.2
+    },
+    "user": {
+        "username": "dave",
+        "full_name": "Dave Grohl"
+    },
+    "importance": 5
+}
+"""
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+# importance参数使用Body对象指明
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int, item: Item, user: User, importance: Annotated[int, Body()]
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    return results
+```
+
+在请求体中只包含一个请求体参数时，需要指定Body对象的`embed=True`
+
+```python
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+"""
+{
+    "item": {
+        "name": "Foo",
+        "description": "The pretender",
+        "price": 42.0,
+        "tax": 3.2
+    }
+}
+"""
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
 ```
 
 ### 数据校验
@@ -222,7 +339,6 @@ from fastapi import FastAPI, Query
 
 app = FastAPI()
 
-
 @app.get("/items/")
 async def read_items(q: Union[List[str], None] = Query(default=None)):
     query_items = {"q": q}
@@ -248,7 +364,6 @@ from fastapi import FastAPI, Path, Query
 
 app = FastAPI()
 
-
 @app.get("/items/{item_id}")
 async def read_items(
     item_id: Annotated[int, Path(title="The ID of the item to get")],
@@ -262,5 +377,52 @@ async def read_items(
 
 数值校验
 
+Path和Query中包含指定数值范围的参数
+
 -   `ge=<value>`：大于等于
 -   `gt`、`le`、`lt`
+
+### Cookie参数
+
+定义Cookie参数的方式与定义Query和Path参数相同
+
+```python
+from typing import Annotated
+
+from fastapi import Cookie, FastAPI
+
+app = FastAPI()
+
+@app.get("/items/")
+async def read_items(ads_id: Annotated[str | None, Cookie()] = None):
+    return {"ads_id": ads_id}
+```
+
+### Header参数
+
+定义Header参数的方式与定义Query、Path、Cookie参数相同
+
+FastAPI的Header参数会自动将请求头中`User-Agent`形式的参数自动转换为`user_agent`形式
+
+```python
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+@app.get("/items/")
+async def read_items(user_agent: Annotated[str | None, Header()] = None):
+    return {"User-Agent": user_agent}
+```
+
+使用list标记可以以列表形式接收多个Header参数
+
+```python
+@app.get("/items/")
+async def read_items(x_token: Annotated[list[str] | None, Header()] = None):
+    return {"X-Token values": x_token}
+```
+
+
+
