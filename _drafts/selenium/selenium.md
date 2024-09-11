@@ -35,9 +35,99 @@ npm i -g edgedriver
 from selenium import webdriver
 import time
 
-driver = webdriver.Edge()
-driver.get('https://www.baidu.com')
+driver = webdriver.Chrome()  # 创建浏览器会话
+driver.get('https://www.baidu.com')  # 访问网页
 time.sleep(5)
-driver.close()
+driver.quit()  # close()方法也可关闭浏览器，但在官方文档中建议使用quit()方法
 ```
+
+## 浏览器选项
+
+创建浏览器会话时，可以传入浏览器选项参数，使用浏览器选项类来包装
+
+```python
+options = webdriver.ChromeOptions()  # 创建选项类对象
+# 设置options
+options.browser_version = 'stable'  # 效果同set_capability('browserVersion', 'stable')
+options.set_capability('pageLoadStrategy', PageLoadStrategy.eager)  # value也可传入'eager'
+options.add_argument('--headless')  # 设置无头浏览器
+driver = webdriver.Chrome(options=options)
+```
+
+选项类可以设置两类参数
+
+-   Capabilities：表示浏览器特性及系统的配置
+
+    该类参数通过`BaseOptions`类包装
+
+    -   直接设置配置项属性
+    -   `set_capability()`：设置配置项
+    -   `capabilities`：获取当前浏览器的所有capabilities配置
+
+    对于特定浏览器，options中包含了默认的capabilities配置，默认配置在`desired_capabilities.py`中定义
+
+    W3C文档中定义的Capabilities配置见：[WebDriver (w3c.github.io)](https://w3c.github.io/webdriver/#capabilities)
+
+    Selenium中设置Capabilities配置见：[浏览器选项](https://www.selenium.dev/zh-cn/documentation/webdriver/drivers/options/)
+
+-   Arguments：浏览器启动参数
+
+    该类参数通过`ArgOptions`类包装
+
+    -   `add_argument()`：设置启动参数
+    -   `arguments`：获取当前浏览器的所有arguments
+
+    不同浏览器定义的arguments不同，具体参数应查看具体浏览器的文档，见文档：[支持的浏览器列表](https://www.selenium.dev/zh-cn/documentation/webdriver/browsers/)
+
+    ChromeOptions类文档：[ChromeOptions](https://developer.chrome.com/docs/chromedriver/capabilities?hl=zh-cn#recognized_capabilities)
+
+    Chrome启动参数文档：[List of Chromium Command Line Switches](https://peter.sh/experiments/chromium-command-line-switches/)
+
+## DOM操作
+
+### 查找元素
+
+selenium使用两个方法来查找DOM元素
+
+-   `find_element`：查找单个元素，若匹配多个元素，仅返回第一个
+-   `find_elements`：查找多个元素
+
+两个方法都接收两个参数
+
+-   `by`：查找策略，传入一个字符串或`By`枚举类
+-   `value`：匹配值
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+element = driver.find_element(By.ID, 'my_id')  #  查找id='my-id'的元素
+elements = driver.find_elements(By.CLASS_NAME, 'my_class')  # 查找class='my-class'的元素
+```
+
+By枚举类包含以下值
+
+-   `ID = 'id'`：根据id属性匹配
+-   `XPATH = 'xpath'`：根据xpath表达式匹配
+-   `LINK_TEXT = 'link text'`：根据超链接标签文本精确匹配
+-   `PARTIAL_LINK_TEXT = 'partial link text'`：根据超链接标签文本模糊匹配
+-   `NAME = 'name'`：根据name属性匹配
+-   `TAG_NAME = 'tag name'`：根据标签名称匹配
+-   `CLASS_NAME = 'class name'`：根据class属性等值匹配
+-   `CSS_SELECTOR = 'css selector'`：根据css选择器匹配
+
+### 获取元素信息
+
+查找元素返回的元素对象为`WebElement`类型，通过该对象可以获取元素的信息
+
+-   `is_enabled()`：元素是否可用
+-   `is_selected()`：元素是否选中
+-   `is_displayed()`：元素是否显示
+-   `tag_name`：元素标签名称
+-   `text`：元素文本内容
+-   `get_attribute('attr')`：获取元素属性值
+
+
 
