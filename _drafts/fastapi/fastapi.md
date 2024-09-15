@@ -424,5 +424,37 @@ async def read_items(x_token: Annotated[list[str] | None, Header()] = None):
     return {"X-Token values": x_token}
 ```
 
+## 响应处理
 
+### 响应模型
+
+使用Pydantic定义响应的数据模型，设置到路径装饰器的`response_model`参数
+
+```python
+from typing import Any
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: list[str] = []
+
+# response_model参数接收响应模型
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item) -> Any:
+    return item
+
+# response_model参数也接收模型的列表
+@app.get("/items/", response_model=list[Item])
+async def read_items() -> Any:
+    return [
+        {"name": "Portal Gun", "price": 42.0},
+        {"name": "Plumbus", "price": 32.0},
+    ]
+```
 
