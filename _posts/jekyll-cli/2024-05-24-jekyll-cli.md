@@ -1,17 +1,53 @@
 ---
 layout: post
-title: PowerJekyll开发记录
+title: jekyll-cli开发记录
 categories:
 - 博客开发
 tags:
 - Jekyll
-- PowerShell
 - CLI
+- Typer
 typora-root-url: ./
 date: 2024-05-24 16:31
 ---
 
 ## 项目背景
+
+前段时间写了挺多博客，一直是用[`jekyll-compose`](https://github.com/jekyll/jekyll-compose)来完成创建、发布等功能，但使用过程中也遇到挺多不满意的地方，比如命令太长、`typora-root-url`加上引号导致typora预览失效、不能在任意目录执行命令等
+
+在此背景下，我首先开发了`PowerJekyll`项目，但`PowerJekyll`虽说是一个`PowerShell`模块，但却依赖于Python环境，并且模块的`PowerShell`脚本只是完成了自动补全的注册，并没有功能上的增加，显得可有可无
+
+同时，我接触到了[`Typer`](https://typer.tiangolo.com/)框架，一个用于构建CLI应用的现代化框架，使用装饰器定义一个指令的执行函数，同时使用类型标记完成参数的类型验证，极大简化了命令行参数的解析和验证。不仅如此，相比原来的`argparse`，`Typer`打印的帮助文档更加美观，同时支持`rich`库输出美观的控制台文本。因此，我决定大刀阔斧，使用`Typer`重写项目，并且更名为`jekyll-cli`，使用`Poetry`管理依赖和打包，项目已发布在PyPi上
+
+PyPi: [jekyll-cli · PyPI](https://pypi.org/project/jekyll-cli/)
+
+Github: [Baymax104/jekyll-cli: Jekyll Blog CLI Tool (github.com)](https://github.com/Baymax104/jekyll-cli)
+
+## 项目结构
+
+```
+jekyll-cli
+├──.venv
+├──dist
+├──jekyll_cli
+├──tests
+├──.gitignore
+├──LICENSE
+├──poetry.lock
+├──pyproject.toml
+└──README.md
+```
+
+-   `jekyll_cli`：源代码模块
+-   `pyproject.toml`：poetry项目配置文件
+-   `.venv`：poetry环境依赖目录
+-   `dist`：打包目标目录
+
+---
+
+>   以下为旧版本记录
+
+**项目背景**
 
 前段时间写了挺多博客，一直是用`jekyll-compose`（[github](https://github.com/jekyll/jekyll-compose)）来完成创建、发布等功能，但使用过程中也遇到挺多不满意的地方，比如命令太长、`typora-root-url`加上引号导致typora预览失效、不能在任意目录执行命令等
 
@@ -23,9 +59,7 @@ date: 2024-05-24 16:31
 
 言归正传，我基于这样的背景开发了`PowerJekyll`项目，它是一个PowerShell模块，虽然功能简单，但非常实用，基本满足了我的日常使用
 
-项目github：[Baymax104/PowerJekyll: Jekyll博客的PowerShell命令行工具 (github.com)](https://github.com/Baymax104/PowerJekyll)
-
-## 项目结构
+**项目结构**
 
 项目中主要的代码文件如下
 
@@ -66,7 +100,7 @@ PowerJekyll
 -   `commands`：博客的基本命令，包含创建、发布、打开等
 -   `git_commands`：与git相关命令，执行博客的git部分操作
 
-## argparse库
+**argparse**
 
 argparse库用于Python脚本的命令行参数解析，通过配置解析器对象来设置命令的参数、格式等
 
@@ -79,7 +113,7 @@ argparse库用于Python脚本的命令行参数解析，通过配置解析器对
 -   调用`parse_args`方法来解析命令，返回参数对象`args`
 -   调用`args`的参数属性来获取参数值
 
-### 实现子命令
+**实现子命令**
 
 argparse可以创建多个子命令解析器，每个子命令解析器可以独立添加参数，可直接调用`args`的子命令的参数属性来获取参数值
 
@@ -102,7 +136,7 @@ parser_a.add_argument('bar', type=int, help='bar help')
 parser.parse_args()
 ```
 
-## argcomplete库
+**argcomplete**
 
 argcomplete库基于argparse库实现参数的自动补全
 
@@ -110,7 +144,7 @@ argcomplete库基于argparse库实现参数的自动补全
 
 基本使用：在调用`parse_args`方法解析参数之前，调用`argcomplete.autocomplete(parser)`，argcomplete会自动根据解析器来实现补全
 
-### 自定义补全
+**自定义补全**
 
 在设置解析器时，可以设置参数的completer（补全器）来实现自定义补全，库中提供了以下几种completer
 
@@ -130,7 +164,7 @@ value_list = [1, 2, 3]
 action.completer = argcomplete.completers.ChoicesCompleter(value_list)
 ```
 
-## PowerShell模块
+**PowerShell模块**
 
 PowerShell模块是一个自包含的可重用单元，可以包含cmdlet、提供程序、函数、变量等
 
