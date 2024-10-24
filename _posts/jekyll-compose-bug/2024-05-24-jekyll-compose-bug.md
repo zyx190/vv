@@ -2,7 +2,7 @@
 layout: post
 title: 记录使用jekyll-compose的一个坑
 categories:
-- 博客开发
+- 开发相关
 tags:
 - jekyll-compose
 - bug

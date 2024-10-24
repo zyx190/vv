@@ -2,7 +2,7 @@
 layout: post
 title: jekyll-cli开发记录
 categories:
-- 博客开发
+- 开发相关
 tags:
 - Jekyll
 - CLI
