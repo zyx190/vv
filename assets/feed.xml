@@ -17,7 +17,7 @@ permalink: /feed.xml
   <link rel="self" type="application/atom+xml" href="{{ page.url | absolute_url }}"/>
   <link rel="alternate" type="text/html" hreflang="{{ site.alt_lang | default: site.lang }}"
     href="{{ '/' | absolute_url }}"/>
-  <generator uri="https://jekyllrb.com/" version="{{ jekyll.version }}">Jekyll</generator>
+  <generator uri="https://qq.com/" version="{{ jekyll.version }}">Jekyll</generator>
   <rights> © {{ 'now' | date: '%Y' }} {{ site.social.name }} </rights>
   <icon>{{ site.baseurl }}/assets/img/favicons/favicon.ico</icon>
   <logo>{{ site.baseurl }}/assets/img/favicons/favicon-96x96.png</logo>
